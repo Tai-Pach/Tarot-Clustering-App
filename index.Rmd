@@ -20,12 +20,83 @@ output:
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 ```
 
+<style>
+/* ── Layout fixes ── */
+/* Push main content right to clear the TOC sidebar */
+.main-container {
+  max-width: 100% !important;
+  padding-left: 240px !important;
+  padding-right: 40px !important;
+  padding-top: 30px !important;
+}
+/* TOC sidebar fixed on left */
+.tocify-wrapper {
+  top: 20px !important;
+}
+/* Hide auto title block */
+.title, .subtitle, .author, .date { display: none !important; }
 
----
+/* ── Typography ── */
+body { font-family: 'Georgia', serif; font-size: 16px; color: #2c2c2c; }
+h1, h2, h3 { font-family: 'Arial', sans-serif; }
+h1 { border-bottom: 3px solid #c9a84c; padding-bottom: 8px; }
+h2 { border-bottom: 1px solid #ddd; padding-bottom: 6px; }
+blockquote { border-left: 4px solid #c9a84c; background: #fdf9f0; padding: 12px 16px; font-style: italic; }
+.callout { background: #f0eaff; border-left: 5px solid #7c3aed; padding: 14px 18px; margin: 16px 0; border-radius: 4px; }
+.callout strong { color: #4c1d95; }
+table { width: 100%; }
+thead { background-color: #2a1f4a; color: white; }
 
-> *Can we group tarot cards algorithmically based on how beneficial or harmful their meanings are — both upright and reversed?*
+/* ── Back to map button ── */
+#back-to-map-btn {
+  display: none;
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 99999;
+  background: #2a1f4a;
+  color: #c9a84c;
+  border: 1px solid #c9a84c;
+  border-radius: 4px;
+  padding: 10px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  text-decoration: none;
+}
+#back-to-map-btn:hover { background: #3a2f5a; }
+</style>
 
----
+<!-- Back to map floating button -->
+<a id="back-to-map-btn" href="#">✦ &nbsp; View Map</a>
+
+<script>
+// Show/hide back-to-map button based on scroll
+window.addEventListener('scroll', function() {
+  var btn = document.getElementById('back-to-map-btn');
+  if (window.scrollY > 100) {
+    btn.style.display = 'block';
+  } else {
+    btn.style.display = 'none';
+  }
+}, { passive: true });
+
+// Clicking button shows the map overlay and scrolls to top
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('back-to-map-btn').addEventListener('click', function(e) {
+    e.preventDefault();
+    var hero = document.getElementById('map-hero');
+    var hint = document.getElementById('scroll-hint');
+    if (hero) hero.style.display = 'block';
+    if (hint) hint.style.display = 'block';
+    this.style.display = 'none';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+</script>
+
 ---
 
 > *Can we group tarot cards algorithmically based on how beneficial or harmful their meanings are — both upright and reversed?*
@@ -42,7 +113,7 @@ The pipeline combines web scraping, VADER sentiment analysis, and the Claude API
 
 ## Interactive Map
 
-The full interactive map is embedded above — hover over any dot to see the card name, keywords, scores, and Rider-Waite-Smith image. Use the filter buttons to explore by suit, orientation, or arcana type. Green = upright, red = reversed, gold ring = Major Arcana.
+The full interactive map loads when you first visit the page — hover over any dot to see the card name, keywords, scores, and Rider-Waite-Smith image. Use the filter buttons to explore by suit, orientation, or arcana type. Green = upright, red = reversed, gold ring = Major Arcana. Use the **✦ View Map** button (bottom-right) to return to it at any time.
 
 ---
 
@@ -131,7 +202,7 @@ Given these findings, the **scatter plot map** was adopted as the primary output
 
 ### Step 5 — Visualization
 
-The interactive map above plots all 156 cards on a positivity × severity plane using HTML5 Canvas.
+The interactive map plots all 156 cards on a positivity × severity plane using HTML5 Canvas.
 
 **Features:**
 
@@ -238,8 +309,8 @@ The strongest clustering signal in the data is upright vs. reversed orientation 
 
 ```bash
 # Clone the repo
-git clone https://github.com/your-username/tarot-clustering.git
-cd tarot-clustering
+git clone https://github.com/tai-pach/Tarot-Clustering-App.git
+cd Tarot-Clustering-App
 
 # Install Python dependencies
 pip install anthropic requests beautifulsoup4 vaderSentiment pandas scikit-learn matplotlib seaborn
@@ -259,18 +330,12 @@ open tarot_map_full.html
 ## Rendering This Document
 
 ```r
-# Install rmarkdown if needed
 install.packages("rmarkdown")
-
-# Render to HTML for GitHub Pages
 rmarkdown::render("index.Rmd", output_format = "html_document")
 ```
 
-Make sure `tarot_map_full.html` is in the **same folder** as the rendered `index.html` so the iframe resolves correctly.
+Make sure `tarot_map_full.html` and `header.html` are in the **same folder** as `index.Rmd`.
 
 ---
 
 *Rider-Waite-Smith tarot imagery is in the public domain. Keyword data sourced from [Labyrinthos](https://labyrinthos.co) for research purposes.*
-
-</div>
-
