@@ -15,13 +15,20 @@ output:
 }
 </style>
 
-Have you ever had a creative project in mind but lacked the funds to bring it to life?
+####Project Overview
+This project applies natural language processing and unsupervised machine learning to the 78-card Rider-Waite-Smith tarot deck. Each card is scored across dimensions of positivity, severity, and domain relevance based on its traditional keyword meanings, then visualized on an interactive 2D map.
 
-Maybe you want to publish a cookbook, film a documentary, or release an album. With the growing popularity of crowd-funding sites, that idea doesn't have to be a daydream. Kickstarter has grown into one of the most popular crowd-funding platforms on the web since its inception in 2009. Over 140,000 projects have been funded thanks to the patronage of millions of Kickstarter backers.  From smart watches to card games about combustible felines, Kickstarter has actualized projects that have impacted technology, design, and pop culture.
+The core question: can we group tarot cards algorithmically based on how beneficial or harmful their meanings are — both upright and reversed?
 
-So you have your idea, and you are ready to deploy your Kickstarter page...
+####Pipeline
+###Step 1 — Data Collection
+Keyword meanings were scraped from Labyrinthos (labyrinthos.co), targeting the structured keyword table on each card page rather than the full prose descriptions. This was a deliberate choice — prose text is editorially biased toward positive framing even for difficult cards, while keywords are more neutral and discriminative.
 
-Not to deter you, but only about 36% of projects get funded.  So what is the magic formula to get your project fully funded? What factors effect whether a project succeeds or fails?  This data set, provided by Kaggle, can give us insight into Kickstarter projects launched between 2009 and 2018...
+•	78 cards × 2 orientations = 156 rows
+•	Source: labyrinthos.co/blogs/tarot-card-meanings-list
+•	Only the upright/reversed keyword tables were scraped — not the full article text
+•	Polite crawl delays (3–5 seconds between requests) and retry logic for 503 errors
+
 
 
 *Preliminary data cleaning and feature engineering*
