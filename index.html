@@ -551,13 +551,14 @@ or harmful their meanings are — both upright and reversed?</em></p>
 <p>This project applies natural language processing and unsupervised
 machine learning to the 78-card Rider-Waite-Smith tarot deck. Each card
 is scored across dimensions of <strong>positivity</strong>,
-<strong>severity</strong>, and <strong>domain relevance</strong> based
-on its traditional keyword meanings, then visualized on an interactive
-2D map.</p>
-<p>The pipeline combines web scraping, VADER sentiment analysis, and the
-Claude API to produce a 156-row dataset (78 cards × 2 orientations),
-which is then explored using K-Means clustering and scatter plot
-visualization.</p>
+<strong>severity</strong> (i.e. intensity of meaning), and
+<strong>domain relevance</strong> (love, career, health, etc.) based on
+its traditional keyword meanings, then visualized on an interactive 2D
+map.</p>
+<p>The pipeline combines web scraping (beautifulsoup), VADER sentiment
+analysis, and the Claude API to produce a 156-row dataset (78 cards × 2
+orientations), which is then explored using K-Means clustering and
+scatter plot visualization.</p>
 <hr />
 </div>
 <div id="interactive-map" class="section level2">
@@ -940,20 +941,6 @@ of cards to a severity of 0.6. Adding named reference cards
 (e.g. <em>“Two of Cups = 0.2, The Tower = 1.0”</em>) in the prompt
 instructions spread the distribution, though variance remained low
 (0.025–0.028).</p>
-</div>
-<div id="k-means-limitations-on-mixed-type-features"
-class="section level3">
-<h3>K-Means limitations on mixed-type features</h3>
-<p>K-Means with Euclidean distance is not well-suited to datasets mixing
-continuous features with binary flags. Future work could explore:</p>
-<ul>
-<li><strong>Gower distance</strong> with PAM (Partitioning Around
-Medoids) for mixed data types</li>
-<li><strong>Hierarchical clustering</strong> with a dendrogram — better
-for exploration without committing to a cluster count</li>
-<li><strong>DBSCAN</strong> to identify genuinely outlying cards (The
-Tower, Ten of Swords) rather than forcing them into clusters</li>
-</ul>
 </div>
 <div id="orientation-as-the-dominant-signal" class="section level3">
 <h3>Orientation as the dominant signal</h3>

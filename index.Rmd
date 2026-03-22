@@ -105,9 +105,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 ## Project Overview
 
-This project applies natural language processing and unsupervised machine learning to the 78-card Rider-Waite-Smith tarot deck. Each card is scored across dimensions of **positivity**, **severity**, and **domain relevance** based on its traditional keyword meanings, then visualized on an interactive 2D map.
+This project applies natural language processing and unsupervised machine learning to the 78-card Rider-Waite-Smith tarot deck. Each card is scored across dimensions of **positivity**, **severity** (i.e. intensity of meaning), and **domain relevance** (love, career, health, etc.) based on its traditional keyword meanings, then visualized on an interactive 2D map.
 
-The pipeline combines web scraping, VADER sentiment analysis, and the Claude API to produce a 156-row dataset (78 cards × 2 orientations), which is then explored using K-Means clustering and scatter plot visualization.
+The pipeline combines web scraping (beautifulsoup), VADER sentiment analysis, and the Claude API to produce a 156-row dataset (78 cards × 2 orientations), which is then explored using K-Means clustering and scatter plot visualization.
 
 ---
 
@@ -265,14 +265,6 @@ Full prose descriptions from Labyrinthos inflated positivity scores dramatically
 ### LLM severity anchoring
 
 Without explicit anchor examples in the prompt, the LLM defaulted 46% of cards to a severity of 0.6. Adding named reference cards (e.g. *"Two of Cups = 0.2, The Tower = 1.0"*) in the prompt instructions spread the distribution, though variance remained low (0.025–0.028).
-
-### K-Means limitations on mixed-type features
-
-K-Means with Euclidean distance is not well-suited to datasets mixing continuous features with binary flags. Future work could explore:
-
-- **Gower distance** with PAM (Partitioning Around Medoids) for mixed data types
-- **Hierarchical clustering** with a dendrogram — better for exploration without committing to a cluster count
-- **DBSCAN** to identify genuinely outlying cards (The Tower, Ten of Swords) rather than forcing them into clusters
 
 ### Orientation as the dominant signal
 
