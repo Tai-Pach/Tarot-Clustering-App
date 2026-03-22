@@ -1,4 +1,4 @@
-# Tarot-Clustering-App
+# Tarot Clustering App
 
 This project applies natural language processing and unsupervised machine learning to the 78-card Rider-Waite-Smith tarot deck. Each card is scored across dimensions of positivity, severity (intensity), and domain relevance (health, career, love, etc.) based on its traditional keyword meanings, then visualized on an interactive 2D map.
 
