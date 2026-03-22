@@ -1,0 +1,293 @@
+---
+title: "Tarot Card Clustering"
+subtitle: "NLP & Unsupervised Learning on Tarot Card Meanings"
+author: ""
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 3
+    theme: flatly
+    highlight: tango
+    code_folding: show
+    self_contained: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+<style>
+body { font-family: 'Georgia', serif; font-size: 16px; color: #2c2c2c; }
+h1, h2, h3 { font-family: 'Arial', sans-serif; }
+h1 { border-bottom: 3px solid #c9a84c; padding-bottom: 8px; }
+h2 { border-bottom: 1px solid #ddd; padding-bottom: 6px; }
+blockquote { border-left: 4px solid #c9a84c; background: #fdf9f0; padding: 12px 16px; font-style: italic; }
+.callout { background: #f0eaff; border-left: 5px solid #7c3aed; padding: 14px 18px; margin: 16px 0; border-radius: 4px; }
+.callout strong { color: #4c1d95; }
+table { width: 100%; }
+thead { background-color: #2a1f4a; color: white; }
+.map-container { border: 2px solid #c9a84c; border-radius: 6px; overflow: hidden; margin: 24px 0; box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+.map-label { background: #2a1f4a; color: #c9a84c; font-family: Arial, sans-serif; font-size: 13px; letter-spacing: 0.08em; padding: 8px 14px; }
+</style>
+
+---
+
+> *Can we group tarot cards algorithmically based on how beneficial or harmful their meanings are — both upright and reversed?*
+
+---
+
+## Project Overview
+
+This project applies natural language processing and unsupervised machine learning to the 78-card Rider-Waite-Smith tarot deck. Each card is scored across dimensions of **positivity**, **severity**, and **domain relevance** based on its traditional keyword meanings, then visualized on an interactive 2D map.
+
+The pipeline combines web scraping, VADER sentiment analysis, and the Claude API to produce a 156-row dataset (78 cards × 2 orientations), which is then explored using K-Means clustering and scatter plot visualization.
+
+---
+
+## Interactive Map
+
+Hover over any dot to see the card name, keywords, scores, and Rider-Waite-Smith image. Use the filter buttons to explore by suit, orientation, or arcana type.
+
+<div class="map-container">
+  <div class="map-label">✦ &nbsp; TAROT CARD MAP — POSITIVITY × SEVERITY &nbsp; ✦</div>
+  <iframe
+    src="tarot_map_full.html"
+    width="100%"
+    height="780px"
+    frameborder="0"
+    scrolling="no"
+    style="display:block;">
+  </iframe>
+</div>
+
+> **How to read the map:** Each dot is one card in one orientation. Green = upright, red = reversed. Gold-ringed dots are Major Arcana. The horizontal axis is positivity (negative ← → positive) and the vertical axis is severity (mild ↑ intense). The four shaded quadrants — Intensely Negative, Mildly Negative, Mildly Positive, Intensely Positive — represent the natural groupings in the data.
+
+---
+
+## Pipeline
+
+### Step 1 — Data Collection
+
+Keyword meanings were scraped from [Labyrinthos](https://labyrinthos.co/blogs/tarot-card-meanings-list), targeting only the structured keyword table on each card page — not the full prose descriptions.
+
+**Why keywords only?** Prose text is editorially biased toward positive framing even for difficult cards. Keywords are more neutral and discriminative — *"reckless, careless, distracted"* scores very differently from *"beginnings, freedom, innocence"*.
+
+- 78 cards × 2 orientations = **156 rows**
+- Source: `labyrinthos.co/blogs/tarot-card-meanings-list`
+- Polite crawl delays (3–5 seconds between requests) with retry logic for 503 errors
+- Pre-flight URL validation with per-error-type handling (404, 503, timeout)
+
+**URL pattern:**
+```
+https://labyrinthos.co/blogs/tarot-card-meanings-list/{card-slug}
+```
+
+---
+
+### Step 2 — Feature Engineering
+
+Each card row was scored across 7 features using a blend of VADER sentiment analysis and Claude API scoring:
+
+| Feature | Type | Source | Description |
+|---|---|---|---|
+| `positivity` | float −1 to +1 | VADER + LLM blend | Overall sentiment of the keywords |
+| `positivity_vader` | float −1 to +1 | VADER | Raw VADER compound score |
+| `positivity_llm` | float −1 to +1 | Claude API | LLM score grounded in keywords only |
+| `severity` | float 0 to 1 | Claude API | How intense or life-changing the card is |
+| `domain_love` | binary 0/1 | Claude API | Associated with relationships or love |
+| `domain_career` | binary 0/1 | Claude API | Associated with work or finances |
+| `domain_health` | binary 0/1 | Claude API | Associated with physical or mental health |
+| `domain_spirit` | binary 0/1 | Claude API | Associated with spirituality or inner life |
+| `energy_active` | binary 0/1 | Claude API | Action/change vs passive/receptive |
+
+The final `positivity` score is the average of VADER and LLM scores, giving a more robust signal than either alone.
+
+---
+
+### Step 3 — NLP Scoring
+
+**VADER** (Valence Aware Dictionary and sEntiment Reasoner) was applied directly to the raw keyword strings. VADER works well on comma-separated word lists since it evaluates lexical sentiment without requiring sentence structure.
+
+**Claude API** was prompted with the same keywords to produce structured JSON scores. The prompt explicitly required traditional Rider-Waite-Smith interpretation — not modern positive-psychology reframing — and included explicit scoring anchors:
+
+```
+Scoring reminders:
+- ALL reversed cards should score negative or near zero on positivity
+- The Tower, Ten of Swords, Three of Swords upright should score below -0.6
+- Severity must be spread across the full 0.0-1.0 range
+- Minor everyday cards score 0.1-0.3 severity
+- Catastrophic cards (The Tower) score 0.9-1.0 severity
+```
+
+<div class="callout">
+<strong>Key data quality finding:</strong> Early iterations using full prose descriptions inflated positivity scores dramatically — reversed cards averaged <strong>+0.255</strong> instead of negative values, and <em>The Tower</em> upright scored as "Very Positive". Switching to keywords-only fixed this. Final dataset: reversed cards average <strong>−0.504</strong>, upright cards average <strong>+0.353</strong>.
+</div>
+
+---
+
+### Step 4 — Clustering Exploration
+
+K-Means clustering was explored across k=2 through k=15 with multiple feature set combinations. Silhouette score was the primary evaluation metric.
+
+| Feature Set | Best k | Best Silhouette | Outcome |
+|---|---|---|---|
+| `positivity` only | 2 | 0.7699 | Clean split but trivially positive/negative |
+| `positivity + severity` | 15 | 0.5790 | Still climbing — no clear peak |
+| `positivity + domains` | 15 | 0.4032 | Domain flags adding noise |
+| All 7 features | 15 | 0.2911 | Worst — severity variance too low |
+| Without severity | 15 | 0.4877 | Better but still no peak |
+
+**Why K-Means didn't produce a clean result:**
+
+1. **Severity had very low variance** — 46% of all cards scored exactly 0.6, meaning the LLM defaulted to a neutral value despite anchoring instructions
+2. **Domain flags are too binary and correlated** for Euclidean distance separation — K-Means isn't well-suited to mixed continuous/binary feature sets
+3. **The dominant signal is orientation** — upright vs. reversed accounts for the clearest separation in the data. Any clustering algorithm finds this first
+
+Given these findings, the **scatter plot map** was adopted as the primary output — a more honest representation of the data's actual structure than forcing arbitrary cluster labels.
+
+---
+
+### Step 5 — Visualization
+
+The interactive map above plots all 156 cards on a positivity × severity plane using HTML5 Canvas.
+
+**Features:**
+
+- Hover tooltips: card name, orientation, keywords, positivity, severity, VADER score, domain tags
+- Rider-Waite-Smith card images in tooltip (reversed cards displayed rotated 180°)
+- Filter buttons: All / Upright / Reversed / Major Arcana / Minor Arcana / Wands / Cups / Swords / Pentacles
+- Live search by card name or keyword
+- Four shaded quadrants: Intensely Negative / Mildly Negative / Mildly Positive / Intensely Positive
+- Gold-ringed dots for Major Arcana
+- Live stats bar updating per filter
+
+---
+
+## Key Findings
+
+### Most Negative Cards
+
+| Card | Positivity | Severity |
+|---|---|---|
+| Ten of Swords (upright) | −0.940 | 0.9 |
+| Three of Swords (upright) | −0.934 | 0.8 |
+| Queen of Swords (reversed) | −0.925 | 0.7 |
+| The Tower (upright) | −0.918 | 1.0 |
+| Five of Swords (upright) | −0.883 | 0.7 |
+
+### Most Positive Cards
+
+| Card | Positivity | Severity |
+|---|---|---|
+| The Sun (upright) | +0.964 | 0.4 |
+| Nine of Cups (upright) | +0.923 | 0.2 |
+| Six of Wands (upright) | +0.921 | 0.6 |
+| The Empress (upright) | +0.909 | 0.2 |
+| Strength (upright) | +0.907 | 0.5 |
+
+### Quadrant Summary
+
+| Quadrant | Representative Cards |
+|---|---|
+| **Intensely Negative** (top-left) | The Tower, Ten of Swords, Three of Swords, Five of Swords, Eight of Swords |
+| **Mildly Negative** (bottom-left) | Most reversed cards, The Moon, The Hanged Man, Seven of Cups |
+| **Intensely Positive** (top-right) | The World, Judgement, Wheel of Fortune (upright), The Chariot |
+| **Mildly Positive** (bottom-right) | Nine of Cups, Ten of Cups, The Empress, Six of Pentacles |
+
+### Notable Anomalies
+
+- **The Devil (reversed): +0.719** — correct, traditionally means liberation from bondage
+- **Death (upright): +0.050** — neutral, not negative; keywords are transformation/transition, not destruction
+- **Five of Cups (reversed): +0.854** — correctly positive; reversed means acceptance and moving on
+- **The Tower (reversed): −0.412** — still negative but less so; averting disaster rather than experiencing it
+
+---
+
+## Data Quality Notes & Lessons Learned
+
+### Source text framing matters enormously
+
+Full prose descriptions from Labyrinthos inflated positivity scores dramatically. Even The Tower was framed in growth-oriented language. **Keywords proved far more neutral and reliable** for sentiment analysis than prose.
+
+### LLM severity anchoring
+
+Without explicit anchor examples in the prompt, the LLM defaulted 46% of cards to a severity of 0.6. Adding named reference cards (e.g. *"Two of Cups = 0.2, The Tower = 1.0"*) in the prompt instructions spread the distribution, though variance remained low (0.025–0.028).
+
+### K-Means limitations on mixed-type features
+
+K-Means with Euclidean distance is not well-suited to datasets mixing continuous features with binary flags. Future work could explore:
+
+- **Gower distance** with PAM (Partitioning Around Medoids) for mixed data types
+- **Hierarchical clustering** with a dendrogram — better for exploration without committing to a cluster count
+- **DBSCAN** to identify genuinely outlying cards (The Tower, Ten of Swords) rather than forcing them into clusters
+
+### Orientation as the dominant signal
+
+The strongest clustering signal in the data is upright vs. reversed orientation — upright cards average **+0.353** positivity, reversed average **−0.504**. This isn't a flaw; it reflects the fundamental structure of tarot interpretation.
+
+---
+
+## Tech Stack
+
+| Tool / Library | Purpose |
+|---|---|
+| Python 3 | Primary language |
+| `requests` + `BeautifulSoup` | Web scraping of Labyrinthos keyword tables |
+| `vaderSentiment` | NLP sentiment scoring on keyword strings |
+| `anthropic` (Python SDK) | Claude API calls for structured JSON scoring |
+| `pandas` | Data manipulation and CSV management |
+| `scikit-learn` | `StandardScaler`, `KMeans`, `silhouette_score`, `PCA` |
+| `matplotlib` + `seaborn` | Exploratory scatter plots and elbow/silhouette charts |
+| HTML5 Canvas (vanilla JS) | Interactive map — no frontend framework required |
+
+---
+
+## Output Files
+
+| File | Description |
+|---|---|
+| `tarot_keywords.csv` | Full 156-row dataset with all features |
+| `tarot_map_full.html` | Standalone interactive visualization |
+| `tarot_failed_cards.csv` | Cards that failed scraping or scoring |
+
+---
+
+## Installation & Usage
+
+```bash
+# Clone the repo
+git clone https://github.com/your-username/tarot-clustering.git
+cd tarot-clustering
+
+# Install Python dependencies
+pip install anthropic requests beautifulsoup4 vaderSentiment pandas scikit-learn matplotlib seaborn
+
+# Set your Anthropic API key
+export ANTHROPIC_API_KEY="sk-ant-..."
+
+# Run the full pipeline
+python tarot_pipeline.py
+
+# Open the interactive map
+open tarot_map_full.html
+```
+
+---
+
+## Rendering This Document
+
+```r
+# Install rmarkdown if needed
+install.packages("rmarkdown")
+
+# Render to HTML for GitHub Pages
+rmarkdown::render("index.Rmd", output_format = "html_document")
+```
+
+Make sure `tarot_map_full.html` is in the **same folder** as the rendered `index.html` so the iframe resolves correctly.
+
+---
+
+*Rider-Waite-Smith tarot imagery is in the public domain. Keyword data sourced from [Labyrinthos](https://labyrinthos.co) for research purposes.*

@@ -1,0 +1,157 @@
+card_name,orientation,keywords,positivity_vader,positivity_llm,positivity,severity,domain_love,domain_career,domain_health,domain_spirit,energy_active
+The Fool,upright,"beginnings, freedom, innocence, originality, adventure, idealism, spontaneity",0.8957,0.8,0.8478,0.6,0,0,0,0,1
+The Fool,reversed,"reckless, careless, distracted, naive, foolish, gullible, stale, dull",-0.9325,-0.7,-0.8162,0.5,0,0,0,0,1
+The Magician,upright,"willpower, desire, being resourceful,, skill, ability, concentration, manifestation",0.6124,0.8,0.7062,0.6,0,1,0,1,1
+The Magician,reversed,"manipulation, cunning, trickery, wasted talent, illusion, deception",-0.765,-0.8,-0.7825,0.6,0,1,0,0,1
+The High Priestess,upright,"unconscious, intuition, mystery, spirituality, higher power, inner voice",0.0,0.7,0.35,0.4,0,0,0,1,0
+The High Priestess,reversed,"repressed intuition, hidden motives, superficiality, confusion, cognitive dissonance",-0.5423,-0.7,-0.6211,0.5,0,0,1,1,0
+The Empress,upright,"divine feminine, sensuality, fertility, nurturing, creativity, beauty, abundance, nature",0.9186,0.9,0.9093,0.2,1,1,1,1,0
+The Empress,reversed,"insecurity, overbearing, negligence, smothering, lack of growth, lack of progress",-0.5267,-0.7,-0.6133,0.5,1,1,0,0,0
+The Emperor,upright,"stability, structure, protection, authority, control, practicality, focus, discipline",0.0772,0.6,0.3386,0.5,0,1,0,0,1
+The Emperor,reversed,"tyrant, domineering, rigid, stubborn, lack of discipline, recklessness",-0.6705,-0.8,-0.7352,0.7,0,0,0,0,1
+The Hierophant,upright,"tradition, social groups, conventionality, conformity, education, knowledge, beliefs",0.0,0.2,0.1,0.3,0,0,0,1,0
+The Hierophant,reversed,"rebellion, unconventionality, non-conformity, new methods, ignorance",-0.4588,-0.1,-0.2794,0.5,0,0,0,0,1
+The Lovers,upright,"love, unions, partnerships, relationships, choices, romance, balance, unity",0.8316,0.8,0.8158,0.6,1,0,0,0,1
+The Lovers,reversed,"disharmony, imbalance, conflict, detachment, bad choices, indecision",-0.765,-0.7,-0.7325,0.6,1,0,0,0,0
+The Chariot,upright,"success, ambition, determination, willpower, control, self-discipline, focus",0.7506,0.8,0.7753,0.6,0,1,0,0,1
+The Chariot,reversed,"forceful, no direction, no control, powerless, aggression, obstacles",-0.3578,-0.7,-0.5289,0.8,0,0,0,0,1
+Strength,upright,"courage, bravery, confidence, compassion, self-confidence, inner power",0.9136,0.9,0.9068,0.5,1,0,0,1,1
+Strength,reversed,"self-doubt, weakness, low confidence, inadequacy, cowardice, forcefulness",-0.5106,-0.7,-0.6053,0.5,0,0,1,1,1
+The Hermit,upright,"self-reflection, introspection, contemplation, withdrawal, solitude, search for self",0.0258,0.1,0.0629,0.4,0,0,0,1,0
+The Hermit,reversed,"loneliness, isolation, recluse, being anti-social, rejection, returning to society",-0.8402,-0.3,-0.5701,0.4,1,0,1,0,1
+Wheel of Fortune,upright,"change, cycles, fate, decisive moments, luck, fortune, unexpected events",0.5994,0.3,0.4497,0.8,0,0,0,1,1
+Wheel of Fortune,reversed,"bad luck, lack of control, clinging to control, unwelcome changes, delays",-0.6705,-0.7,-0.6852,0.6,0,0,0,0,1
+Justice,upright,"justice, karma, consequence, accountability, law, truth, honesty, integrity, cause and effect",0.8885,0.7,0.7942,0.6,0,0,0,0,1
+Justice,reversed,"injustice, retribution, dishonesty, corruption, dishonesty, unfairness, avoiding accountability",-0.7269,-0.8,-0.7634,0.7,0,0,0,0,0
+The Hanged Man,upright,"sacrifice, waiting, uncertainty, lack of direction, perspective, contemplation",-0.5719,-0.2,-0.386,0.5,0,1,0,1,0
+The Hanged Man,reversed,"stalling, disinterest, stagnation, avoiding sacrifice, standstill, apathy",-0.6597,-0.6,-0.6299,0.4,0,0,0,0,0
+Death,upright,"transformation, endings, change, transition, letting go, release",0.0,0.1,0.05,0.8,0,0,0,1,1
+Death,reversed,"fear of change, repeating negative patterns, resisting change, stagnancy, decay",-0.8625,-0.7,-0.7812,0.6,0,0,1,0,0
+Temperance,upright,"balance, peace, patience, moderation, calm, tranquillity, harmony, serenity",0.8834,0.8,0.8417,0.2,0,0,1,1,0
+Temperance,reversed,"imbalance, excess, extremes, discord, recklessness, hastiness",-0.4019,-0.7,-0.5509,0.6,1,0,1,0,1
+The Devil,upright,"oppression, addiction, obsession, dependency, excess, powerlessness, limitations",-0.34,-0.8,-0.57,0.8,1,0,1,1,0
+The Devil,reversed,"independence, freedom, revelation, release, reclaiming power, reclaiming control",0.6369,0.8,0.7185,0.7,0,0,0,1,1
+The Tower,upright,"disaster, destruction, upheaval, trauma, sudden change, chaos",-0.936,-0.9,-0.918,1.0,0,0,1,0,1
+The Tower,reversed,"averting disaster, delaying the inevitable, resisting change",-0.6249,-0.2,-0.4124,0.8,0,0,0,0,0
+The Star,upright,"hope, inspiration, positivity, faith, renewal, healing, rejuvenation",0.9081,0.9,0.9041,0.4,0,0,1,1,0
+The Star,reversed,"hopelessness, despair, negativity, lack of faith, despondent",-0.9062,-0.8,-0.8531,0.7,0,0,1,1,0
+The Moon,upright,"illusion, intuition, uncertainty, confusion, complexity, secrets, unconscious",-0.5574,-0.2,-0.3787,0.6,0,0,0,1,0
+The Moon,reversed,"fear, deception, anxiety, misunderstanding, misinterpretation, clarity, understanding",-0.7845,-0.1,-0.4422,0.5,1,0,1,1,1
+The Sun,upright,"happiness, success, optimism, vitality, joy, confidence, happiness, truth",0.9779,0.95,0.9639,0.4,1,1,1,1,1
+The Sun,reversed,"blocked happiness, excessive enthusiasm, pessimism, unrealistic expectations, conceitedness",0.4404,-0.3,0.0702,0.4,0,0,0,0,1
+Judgement,upright,"self-evaluation, awakening, renewal, purpose, reflection, reckoning",0.0,0.6,0.3,0.8,0,0,0,1,1
+Judgement,reversed,"self-doubt, lack of self-awareness, failure to learn lessons, self-loathing",-0.6808,-0.8,-0.7404,0.6,0,0,1,1,0
+The World,upright,"completion, achievement, fulfilment, sense of belonging, wholeness, harmony",0.4019,0.9,0.651,0.8,1,1,1,1,0
+The World,reversed,"lack of closure, lack of achievement, feeling incomplete, emptiness",-0.7184,-0.7,-0.7092,0.6,0,1,0,0,0
+Ace of Wands,upright,"inspiration, creative spark, new initiative, new passion, enthusiasm, energy",0.9349,0.8,0.8675,0.5,1,1,0,1,1
+Ace of Wands,reversed,"delays, blocks, lack of passion, lack of energy, hesitancy, creative blocks",-0.0772,-0.7,-0.3886,0.4,1,1,1,1,0
+Two of Wands,upright,"planning, first steps, making decisions, leaving comfort, taking risks",0.1027,0.3,0.2014,0.5,0,1,0,0,1
+Two of Wands,reversed,"bad planning, overanalyzing, not taking action, playing it safe, avoiding risk",-0.69,-0.3,-0.495,0.3,0,1,0,0,0
+Three of Wands,upright,"momentum, confidence, expansion, growth, foresight, looking ahead",0.7096,0.8,0.7548,0.5,0,1,0,0,1
+Three of Wands,reversed,"restriction, limitations, lack of progress, obstacles, delays, frustration",-0.743,-0.7,-0.7215,0.5,0,1,0,0,0
+Four of Wands,upright,"community, home, celebrations, reunions, parties, gatherings, stability, belonging",0.4019,0.8,0.6009,0.3,1,0,0,0,1
+Four of Wands,reversed,"lack of support, instability, feeling unwelcome, transience, lack of roots, home conflict",-0.6597,-0.7,-0.6798,0.5,1,0,0,0,0
+Five of Wands,upright,"conflict, competition, arguments, aggression, tension, rivals, clashes of ego",-0.8176,-0.6,-0.7088,0.6,0,1,0,0,1
+Five of Wands,reversed,"end of conflict, cooperation, agreements, truces, harmony, peace, avoiding conflict",0.3182,0.8,0.5591,0.4,1,1,0,0,0
+Six of Wands,upright,"success, victory, triumph, rewards, recognition, praise, acclaim, pride",0.9423,0.9,0.9212,0.6,0,1,0,0,1
+Six of Wands,reversed,"failure, lack of recognition, no rewards, lack of achievement",-0.7345,-0.8,-0.7672,0.5,0,1,0,0,0
+Seven of Wands,upright,"protectiveness, standing up for yourself, defending yourself, protecting territory",0.0,0.3,0.15,0.6,0,0,0,0,1
+Seven of Wands,reversed,"giving up, admitting defeat, yielding, lack of self belief, surrender",-0.4404,-0.7,-0.5702,0.6,0,0,0,1,0
+Eight of Wands,upright,"movement, speed, progress, quick decisions, sudden changes, excitement",0.7184,0.7,0.7092,0.6,0,0,0,0,1
+Eight of Wands,reversed,"waiting, slowness, chaos, delays, losing momentum, hastiness, being unprepared",-0.743,-0.6,-0.6715,0.4,0,0,0,0,1
+Nine of Wands,upright,"last stand, persistence, grit, resilience, perseverance, close to success, fatigue",0.4019,0.3,0.3509,0.7,0,1,1,0,1
+Nine of Wands,reversed,"stubbornness, rigidity, defensiveness, refusing compromise, giving up",-0.5423,-0.7,-0.6211,0.5,0,0,0,0,0
+Ten of Wands,upright,"burden, responsibility, duty, stress, obligation, burning out, struggles",-0.802,-0.7,-0.751,0.8,0,1,1,0,1
+Ten of Wands,reversed,"failure to delegate, shouldering too much responsibility, collapse, breakdown",-0.7579,-0.7,-0.7289,0.8,0,1,1,0,0
+Page of Wands,upright,"adventure, excitement, fresh ideas, cheerfulness, energetic, fearless, extroverted",0.9403,0.8,0.8701,0.4,0,0,0,0,1
+Page of Wands,reversed,"hasty, impatient, lacking ideas, tantrums, laziness, boring, unreliable, distracted",-0.8126,-0.7,-0.7563,0.4,0,0,0,0,1
+Knight of Wands,upright,"courageous, energetic, charming, hero, rebellious, hot tempered, free spirit",0.9477,0.4,0.6739,0.7,1,0,0,1,1
+Knight of Wands,reversed,"arrogant, reckless, impatient, lack of self control, passive, volatile, domineering",-0.8225,-0.7,-0.7612,0.6,1,0,1,0,0
+Queen of Wands,upright,"confident, self-assured, passionate, determined, social, charismatic, vivacious, optimistic",0.9201,0.9,0.9101,0.5,1,1,0,0,1
+Queen of Wands,reversed,"demanding, vengeful, low confidence, jealous, selfish, temperamental, bully",-0.8402,-0.8,-0.8201,0.6,1,0,1,0,1
+King of Wands,upright,"leadership, vision, big picture, taking control, daring decisions, boldness, optimism",0.8591,0.8,0.8296,0.7,0,1,0,0,1
+King of Wands,reversed,"forceful, domineering, tyrant, vicious, powerless, ineffective, weak leader",-0.8442,-0.8,-0.8221,0.7,0,1,0,0,1
+Ace of Cups,upright,"love, new feelings, emotional awakening, creativity, spirituality, intuition",0.8126,0.8,0.8063,0.4,1,0,0,1,1
+Ace of Cups,reversed,"coldness, emptiness, emotional loss, blocked creativity, feeling unloved, gloominess",-0.8074,-0.8,-0.8037,0.6,1,1,0,1,0
+Two of Cups,upright,"unity, partnership, attraction, connection, close bonds, joining forces, mutual respect",0.7269,0.8,0.7634,0.4,1,0,0,0,1
+Two of Cups,reversed,"separation, rejection, division, imbalance, tension, bad communication, withdrawal",-0.8481,-0.7,-0.774,0.5,1,0,0,0,1
+Three of Cups,upright,"friendship, community, gatherings, celebrations, group events, social events",0.4404,0.8,0.6202,0.2,1,0,0,0,1
+Three of Cups,reversed,"gossip, scandal, excess, isolation, loneliness, solitude, imbalanced social life",-0.8442,-0.6,-0.7221,0.4,1,0,1,0,0
+Four of Cups,upright,"apathy, contemplation, feeling disconnected, melancholy, boredom, indifference, discontent",-0.7269,-0.6,-0.6634,0.3,1,0,1,1,0
+Four of Cups,reversed,"clarity, awareness, acceptance, choosing happiness, depression, negativity",0.3182,0.2,0.2591,0.5,0,0,1,1,1
+Five of Cups,upright,"loss, grief, disappointment, sadness, mourning, discontent, feeling let down",-0.9201,-0.8,-0.86,0.7,1,0,1,0,0
+Five of Cups,reversed,"acceptance, moving on, finding peace, contentment, seeing positives",0.9081,0.8,0.854,0.3,1,0,1,1,1
+Six of Cups,upright,"nostalgia, memories, familiarity, healing, comfort, sentimentality, pleasure",0.8126,0.7,0.7563,0.2,1,0,1,0,0
+Six of Cups,reversed,"stuck in past, moving forward, leaving home, independence",-0.25,0.3,0.025,0.5,0,0,0,0,1
+Seven of Cups,upright,"choices, searching for purpose, illusion, fantasy, daydreaming, wishful thinking, indecision",-0.2023,-0.2,-0.2011,0.4,0,1,0,1,0
+Seven of Cups,reversed,"lack of purpose, disarray, confusion, diversion, distractions, clarity, making choices",-0.4215,0.1,-0.1608,0.4,0,0,0,0,1
+Eight of Cups,upright,"abandonment, walking away, letting go, searching for truth, leaving behind",-0.2732,-0.2,-0.2366,0.7,1,0,0,1,1
+Eight of Cups,reversed,"stagnation, monotony, accepting less, avoidance, fear of change, staying in bad situation",-0.7374,-0.7,-0.7187,0.6,0,0,0,0,0
+Nine of Cups,upright,"wishes coming true, contentment, satisfaction, success, achievements, recognition, pleasure",0.9451,0.9,0.9225,0.2,0,1,0,0,0
+Nine of Cups,reversed,"unhappiness, lack of fulfilment, disappointment, underachievement, arrogance, snobbery",-0.9371,-0.7,-0.8185,0.5,1,1,1,0,0
+Ten of Cups,upright,"happiness, homecomings, fulfillment, emotional stability, security, domestic harmony",0.8519,0.9,0.876,0.2,1,0,0,0,0
+Ten of Cups,reversed,"unhappy home, separation, domestic conflict, disharmony, isolation​",-0.6249,-0.8,-0.7125,0.6,1,0,0,0,0
+Page of Cups,upright,"idealism, sensitivity, dreamer, naivete, innocence, inner child, head in the clouds",0.6486,0.3,0.4743,0.2,1,0,0,1,0
+Page of Cups,reversed,"emotional vulnerability, immaturity, neglecting inner child, escapism, insecurity",-0.7003,-0.7,-0.7002,0.5,1,0,1,1,0
+Knight of Cups,upright,"idealist, charming, artistic, graceful, tactful, diplomatic, mediator, negotiator",0.8555,0.8,0.8277,0.3,1,1,0,0,1
+Knight of Cups,reversed,"disappointment, tantrums, moodiness, turmoil, avoiding conflict, vanity",-0.936,-0.7,-0.818,0.5,1,0,1,0,0
+Queen of Cups,upright,"compassion, warmth, kindness, intuition, healer, counsellor, supportive",0.8807,0.8,0.8404,0.2,1,0,1,1,0
+Queen of Cups,reversed,"insecurity, giving too much, overly-sensitive, needy, fragile, dependence, martyrdom",-0.4215,-0.7,-0.5607,0.5,1,0,1,0,0
+King of Cups,upright,"wise, diplomatic, balance between head and heart, devoted, advisor, counsellor",0.875,0.8,0.8375,0.3,1,1,0,1,0
+King of Cups,reversed,"overwhelmed, anxious, cold, repressed, withdrawn, manipulative, selfish",-0.7351,-0.7,-0.7175,0.6,1,0,1,1,0
+Ace of Swords,upright,"clarity, breakthrough, new idea, concentration, vision, force, focus, truth",0.7184,0.8,0.7592,0.6,0,0,0,1,1
+Ace of Swords,reversed,"confusion, miscommunication, hostility, arguments, destruction, brutality",-0.9442,-0.8,-0.8721,0.8,1,0,1,0,1
+Two of Swords,upright,"stalemate, difficult choices, stuck in the middle, denial, hidden information",-0.5423,-0.3,-0.4212,0.5,0,0,0,0,0
+Two of Swords,reversed,"indecision, hesitancy, anxiety, too much information, no right choice, truth revealed",-0.5106,-0.2,-0.3553,0.5,0,0,1,1,0
+Three of Swords,upright,"heartbreak, separation, sadness, grief, sorrow, upset, loss, trauma, tears",-0.9674,-0.9,-0.9337,0.8,1,0,1,0,0
+Three of Swords,reversed,"healing, forgiveness, recovery, reconciliation, repressing emotions",-0.1779,0.6,0.211,0.7,1,0,1,0,1
+Four of Swords,upright,"rest, relaxation, peace, sanctuary, recuperation, self-protection, rejuvenation",0.7845,0.7,0.7422,0.2,0,0,1,1,0
+Four of Swords,reversed,"recovery, awakening, re-entering world, release from isolation, restlessness, burnout",-0.5994,0.2,-0.1997,0.5,0,1,1,1,1
+Five of Swords,upright,"arguments, disputes, aggression, bullying, intimidation, conflict, hostility, stress",-0.9652,-0.8,-0.8826,0.7,1,0,1,0,1
+Five of Swords,reversed,"reconciliation, resolution, compromise, revenge, regret, remorse, cutting losses",-0.8885,0.2,-0.3442,0.6,1,0,0,0,1
+Six of Swords,upright,"moving on, departure, leaving behind, distance, accepting lessons",0.3818,0.1,0.2409,0.6,0,0,0,1,1
+Six of Swords,reversed,"stuck in past, returning to trouble, running away from problems, trapped",-0.8689,-0.7,-0.7844,0.6,0,0,1,0,1
+Seven of Swords,upright,"lies, trickery, scheming, strategy, resourcefulness,sneakiness, cunning",-0.5994,-0.3,-0.4497,0.5,0,0,0,0,1
+Seven of Swords,reversed,"confession, conscience, regret, maliciousness, truth revealed",-0.128,-0.2,-0.164,0.5,0,0,0,1,1
+Eight of Swords,upright,"trapped, restricted, victimised, paralysed, helpless, powerless, imprisonment",-0.9287,-0.8,-0.8643,0.7,0,0,1,0,0
+Eight of Swords,reversed,"freedom, release, taking control, survivor, facing fears, empowered, surrender",0.5994,0.7,0.6497,0.6,0,1,1,1,1
+Nine of Swords,upright,"fear, anxiety, negativity, breaking point, despair, nightmares, isolation",-0.9042,-0.8,-0.8521,0.8,1,0,1,1,0
+Nine of Swords,reversed,"recovery, learning to cope, facing life, finding help, shame, guilt, mental health issues",-0.3612,0.1,-0.1306,0.8,0,0,1,0,1
+Ten of Swords,upright,"ruin, failure, bitterness, collapse, exhaustion, dead end, victimization, betrayal",-0.9796,-0.9,-0.9398,0.9,1,1,1,0,0
+Ten of Swords,reversed,"survival, improvement, healing, lessons learned, despair, relapse",0.1779,0.0,0.089,0.8,0,0,1,1,1
+Page of Swords,upright,"curious, witty, chatty, communicative, inspired, vigilant, alert, mental agility",0.8126,0.7,0.7563,0.3,0,0,0,0,1
+Page of Swords,reversed,"scatterbrained, cynical, sarcastic, gossipy, insulting, rude, lack of planning",-0.9246,-0.7,-0.8123,0.4,0,0,0,0,0
+Knight of Swords,upright,"assertive, direct, impatient, intellectual, daring, focused, perfectionist, ambitious",0.8957,0.3,0.5978,0.6,0,1,0,0,1
+Knight of Swords,reversed,"rude, tactless, forceful, bully, aggressive, vicious, ruthless, arrogant",-0.91,-0.8,-0.855,0.7,0,0,0,0,1
+Queen of Swords,upright,"honest, independent, principled, fair, constructive criticism, objective, perceptive",0.4019,0.7,0.5509,0.4,0,0,0,0,1
+Queen of Swords,reversed,"pessimistic, malicious, manipulative, harsh, bitter, spiteful, cruel, deceitful, unforgiving",-0.9501,-0.9,-0.925,0.7,1,0,1,0,1
+King of Swords,upright,"reason, authority, discipline, integrity, morality, serious, high standards, strict",0.3818,0.6,0.4909,0.7,0,1,0,0,1
+King of Swords,reversed,"irrational, dictator, oppressive, inhumane, controlling, cold, ruthless, dishonest",-0.8316,-0.8,-0.8158,0.7,1,1,0,0,1
+Ace of Pentacles,upright,"new opportunities, resources, abundance, prosperity, security, stability, manifestation",0.6124,0.9,0.7562,0.5,0,1,0,0,1
+Ace of Pentacles,reversed,"missed chances, scarcity, deficiency, instability, stinginess, bad investments",-0.5994,-0.7,-0.6497,0.6,0,1,0,0,0
+Two of Pentacles,upright,"balancing resources, adaptation, resourcefulness, flexibility, stretching resources",0.34,0.6,0.47,0.5,0,1,0,0,1
+Two of Pentacles,reversed,"imbalance, unorganized, overwhelmed, messiness, chaos, overextending",-0.5423,-0.7,-0.6211,0.6,0,0,1,0,0
+Three of Pentacles,upright,"teamwork, shared goals, collaboration, apprenticeship, effort, pooling energy",0.5423,0.7,0.6211,0.4,0,1,0,0,1
+Three of Pentacles,reversed,"lack of cohesion, lack of teamwork, apathy, poor motivation, conflict, ego, competition",-0.8316,-0.7,-0.7658,0.5,1,1,0,0,1
+Four of Pentacles,upright,"possessiveness, insecurity, hoarding, stinginess, stability, security, savings, materialism, wealth, frugality, boundaries, guardedness",0.4215,-0.1,0.1608,0.4,0,1,0,0,0
+Four of Pentacles,reversed,"generosity, giving, spending, openness, financial insecurity, reckless spending",0.3818,0.0,0.1909,0.6,0,1,0,0,1
+Five of Pentacles,upright,"hardship, loss, isolation, feeling abandoned, adversity, struggle, unemployment, alienation, disgrace",-0.9643,-0.8,-0.8821,0.7,1,1,0,0,0
+Five of Pentacles,reversed,"positive changes, recovery from loss, overcoming adversity, forgiveness, feeling welcomed",0.5423,0.8,0.6712,0.6,1,0,1,1,1
+Six of Pentacles,upright,"generosity, charity, community, material help, support, sharing, giving and receiving, gratitude",0.9584,0.8,0.8792,0.3,0,1,0,0,1
+Six of Pentacles,reversed,"power dynamics, abuse of generosity, strings attached gifts, inequality, extortion",0.0516,-0.8,-0.3742,0.7,0,1,0,0,1
+Seven of Pentacles,upright,"harvest, rewards, results, growth, progress, perseverance, patience, planning",0.8176,0.7,0.7588,0.3,0,1,0,0,0
+Seven of Pentacles,reversed,"unfinished work, procrastination, low effort, waste, lack of growth, setbacks, impatience, lack of reward",-0.6124,-0.7,-0.6562,0.5,0,1,0,0,0
+Eight of Pentacles,upright,"skill, talent, craftsmanship, quality, high standards, expertise, mastery, commitment, dedication, accomplishment",0.6597,0.8,0.7298,0.4,0,1,0,0,1
+Eight of Pentacles,reversed,"lack of quality, rushed job, bad reputation, lack of motivation, mediocrity, laziness, low skill, dead-end job",-0.7964,-0.8,-0.7982,0.4,0,1,0,0,0
+Nine of Pentacles,upright,"rewarded efforts, success, achievement, independence, leisure, material security, self-sufficiency",0.8519,0.8,0.8259,0.4,0,1,0,0,0
+Nine of Pentacles,reversed,"being guarded, living beyond means, material instability, reckless spending, superficiality",-0.4019,-0.7,-0.5509,0.6,0,1,0,0,1
+Ten of Pentacles,upright,"legacy, roots, family, ancestry, inheritance, windfall, foundations, privilege, affluence, stability, tradition",0.3612,0.8,0.5806,0.6,1,1,0,0,0
+Ten of Pentacles,reversed,"family disputes, bankruptcy, debt, fleeting success, conflict over money, instability, breaking traditions",-0.296,-0.8,-0.548,0.8,1,1,0,0,1
+Page of Pentacles,upright,"ambitious, diligent, goal oriented, planner, consistent, star student, studious, grounded, loyal, faithful, dependable",0.8442,0.8,0.8221,0.4,1,1,0,0,1
+Page of Pentacles,reversed,"foolish, immature, irresponsible, lazy, underachiever, procrastinator, missed chances, poor prospects",-0.8316,-0.8,-0.8158,0.5,0,1,0,0,0
+Knight of Pentacles,upright,"practical, reliable, efficient, stoic, slow and steady, hard-working, committed, patient, conservative",0.5994,0.7,0.6497,0.3,0,1,0,0,0
+Knight of Pentacles,reversed,"workaholic, laziness, dull, boring, no initiative, cheap, irresponsible, gambler, risky investments",-0.872,-0.7,-0.786,0.6,0,1,0,0,0
+Queen of Pentacles,upright,"generous, caring, nurturing, homebody, good business sense, practical, comforting, welcoming, sensible, luxurious",0.9517,0.8,0.8759,0.2,1,1,0,0,0
+Queen of Pentacles,reversed,"selfish, unkempt, jealous, insecure, greedy, materialistic, gold digger, intolerant, self-absorbed, envious",-0.9062,-0.8,-0.8531,0.5,1,1,0,0,0
+King of Pentacles,upright,"abundance, prosperity, security, ambitious, safe, kind, patriarchal, protective, businessman, provider, sensual, reliable",0.8957,0.8,0.8478,0.3,1,1,0,0,1
+King of Pentacles,reversed,"greed, materialistic, wasteful, chauvanist, poor financial decisions, gambler, exploitative, possessive",-0.7717,-0.8,-0.7859,0.7,1,1,0,0,1

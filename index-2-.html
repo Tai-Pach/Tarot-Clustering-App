@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="" />
+
+<meta name="date" content="2026-03-21" />
+
+<title>Tarot Card Clustering</title>
+
+<script src="index-2-_files/header-attrs-2.30/header-attrs.js"></script>
+<script src="index-2-_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="index-2-_files/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="index-2-_files/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="index-2-_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="index-2-_files/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="index-2-_files/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="index-2-_files/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="index-2-_files/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="index-2-_files/navigation-1.1/tabsets.js"></script>
+<script src="index-2-_files/navigation-1.1/codefolding.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+.sourceCode .row {
+  width: 100%;
+}
+.sourceCode {
+  overflow-x: auto;
+}
+.code-folding-btn {
+  margin-right: -30px;
+}
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Tarot Card Clustering</h1>
+<h3 class="subtitle">NLP &amp; Unsupervised Learning on Tarot Card
+Meanings</h3>
+<h4 class="author"></h4>
+<h4 class="date">2026-03-21</h4>
+
+</div>
+
+
+<style>
+body { font-family: 'Georgia', serif; font-size: 16px; color: #2c2c2c; }
+h1, h2, h3 { font-family: 'Arial', sans-serif; }
+h1 { border-bottom: 3px solid #c9a84c; padding-bottom: 8px; }
+h2 { border-bottom: 1px solid #ddd; padding-bottom: 6px; }
+blockquote { border-left: 4px solid #c9a84c; background: #fdf9f0; padding: 12px 16px; font-style: italic; }
+.callout { background: #f0eaff; border-left: 5px solid #7c3aed; padding: 14px 18px; margin: 16px 0; border-radius: 4px; }
+.callout strong { color: #4c1d95; }
+table { width: 100%; }
+thead { background-color: #2a1f4a; color: white; }
+.map-container { border: 2px solid #c9a84c; border-radius: 6px; overflow: hidden; margin: 24px 0; box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+.map-label { background: #2a1f4a; color: #c9a84c; font-family: Arial, sans-serif; font-size: 13px; letter-spacing: 0.08em; padding: 8px 14px; }
+</style>
+<hr />
+<blockquote>
+<p><em>Can we group tarot cards algorithmically based on how beneficial
+or harmful their meanings are — both upright and reversed?</em></p>
+</blockquote>
+<hr />
+<div id="project-overview" class="section level2">
+<h2>Project Overview</h2>
+<p>This project applies natural language processing and unsupervised
+machine learning to the 78-card Rider-Waite-Smith tarot deck. Each card
+is scored across dimensions of <strong>positivity</strong>,
+<strong>severity</strong>, and <strong>domain relevance</strong> based
+on its traditional keyword meanings, then visualized on an interactive
+2D map.</p>
+<p>The pipeline combines web scraping, VADER sentiment analysis, and the
+Claude API to produce a 156-row dataset (78 cards × 2 orientations),
+which is then explored using K-Means clustering and scatter plot
+visualization.</p>
+<hr />
+</div>
+<div id="interactive-map" class="section level2">
+<h2>Interactive Map</h2>
+<p>Hover over any dot to see the card name, keywords, scores, and
+Rider-Waite-Smith image. Use the filter buttons to explore by suit,
+orientation, or arcana type.</p>
+<div class="map-container">
+<div class="map-label">
+✦   TAROT CARD MAP — POSITIVITY × SEVERITY   ✦
+</div>
+<p><iframe
+    src="tarot_map_full.html"
+    width="100%"
+    height="780px"
+    frameborder="0"
+    scrolling="no"
+    style="display:block;"> </iframe></p>
+</div>
+<blockquote>
+<p><strong>How to read the map:</strong> Each dot is one card in one
+orientation. Green = upright, red = reversed. Gold-ringed dots are Major
+Arcana. The horizontal axis is positivity (negative ← → positive) and
+the vertical axis is severity (mild ↑ intense). The four shaded
+quadrants — Intensely Negative, Mildly Negative, Mildly Positive,
+Intensely Positive — represent the natural groupings in the data.</p>
+</blockquote>
+<hr />
+</div>
+<div id="pipeline" class="section level2">
+<h2>Pipeline</h2>
+<div id="step-1-data-collection" class="section level3">
+<h3>Step 1 — Data Collection</h3>
+<p>Keyword meanings were scraped from <a
+href="https://labyrinthos.co/blogs/tarot-card-meanings-list">Labyrinthos</a>,
+targeting only the structured keyword table on each card page — not the
+full prose descriptions.</p>
+<p><strong>Why keywords only?</strong> Prose text is editorially biased
+toward positive framing even for difficult cards. Keywords are more
+neutral and discriminative — <em>“reckless, careless, distracted”</em>
+scores very differently from <em>“beginnings, freedom,
+innocence”</em>.</p>
+<ul>
+<li>78 cards × 2 orientations = <strong>156 rows</strong></li>
+<li>Source:
+<code>labyrinthos.co/blogs/tarot-card-meanings-list</code></li>
+<li>Polite crawl delays (3–5 seconds between requests) with retry logic
+for 503 errors</li>
+<li>Pre-flight URL validation with per-error-type handling (404, 503,
+timeout)</li>
+</ul>
+<p><strong>URL pattern:</strong></p>
+<pre><code>https://labyrinthos.co/blogs/tarot-card-meanings-list/{card-slug}</code></pre>
+<hr />
+</div>
+<div id="step-2-feature-engineering" class="section level3">
+<h3>Step 2 — Feature Engineering</h3>
+<p>Each card row was scored across 7 features using a blend of VADER
+sentiment analysis and Claude API scoring:</p>
+<table>
+<colgroup>
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>Type</th>
+<th>Source</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>positivity</code></td>
+<td>float −1 to +1</td>
+<td>VADER + LLM blend</td>
+<td>Overall sentiment of the keywords</td>
+</tr>
+<tr class="even">
+<td><code>positivity_vader</code></td>
+<td>float −1 to +1</td>
+<td>VADER</td>
+<td>Raw VADER compound score</td>
+</tr>
+<tr class="odd">
+<td><code>positivity_llm</code></td>
+<td>float −1 to +1</td>
+<td>Claude API</td>
+<td>LLM score grounded in keywords only</td>
+</tr>
+<tr class="even">
+<td><code>severity</code></td>
+<td>float 0 to 1</td>
+<td>Claude API</td>
+<td>How intense or life-changing the card is</td>
+</tr>
+<tr class="odd">
+<td><code>domain_love</code></td>
+<td>binary 0/1</td>
+<td>Claude API</td>
+<td>Associated with relationships or love</td>
+</tr>
+<tr class="even">
+<td><code>domain_career</code></td>
+<td>binary 0/1</td>
+<td>Claude API</td>
+<td>Associated with work or finances</td>
+</tr>
+<tr class="odd">
+<td><code>domain_health</code></td>
+<td>binary 0/1</td>
+<td>Claude API</td>
+<td>Associated with physical or mental health</td>
+</tr>
+<tr class="even">
+<td><code>domain_spirit</code></td>
+<td>binary 0/1</td>
+<td>Claude API</td>
+<td>Associated with spirituality or inner life</td>
+</tr>
+<tr class="odd">
+<td><code>energy_active</code></td>
+<td>binary 0/1</td>
+<td>Claude API</td>
+<td>Action/change vs passive/receptive</td>
+</tr>
+</tbody>
+</table>
+<p>The final <code>positivity</code> score is the average of VADER and
+LLM scores, giving a more robust signal than either alone.</p>
+<hr />
+</div>
+<div id="step-3-nlp-scoring" class="section level3">
+<h3>Step 3 — NLP Scoring</h3>
+<p><strong>VADER</strong> (Valence Aware Dictionary and sEntiment
+Reasoner) was applied directly to the raw keyword strings. VADER works
+well on comma-separated word lists since it evaluates lexical sentiment
+without requiring sentence structure.</p>
+<p><strong>Claude API</strong> was prompted with the same keywords to
+produce structured JSON scores. The prompt explicitly required
+traditional Rider-Waite-Smith interpretation — not modern
+positive-psychology reframing — and included explicit scoring
+anchors:</p>
+<pre><code>Scoring reminders:
+- ALL reversed cards should score negative or near zero on positivity
+- The Tower, Ten of Swords, Three of Swords upright should score below -0.6
+- Severity must be spread across the full 0.0-1.0 range
+- Minor everyday cards score 0.1-0.3 severity
+- Catastrophic cards (The Tower) score 0.9-1.0 severity</code></pre>
+<div class="callout">
+<p><strong>Key data quality finding:</strong> Early iterations using
+full prose descriptions inflated positivity scores dramatically —
+reversed cards averaged <strong>+0.255</strong> instead of negative
+values, and <em>The Tower</em> upright scored as “Very Positive”.
+Switching to keywords-only fixed this. Final dataset: reversed cards
+average <strong>−0.504</strong>, upright cards average
+<strong>+0.353</strong>.</p>
+</div>
+<hr />
+</div>
+<div id="step-4-clustering-exploration" class="section level3">
+<h3>Step 4 — Clustering Exploration</h3>
+<p>K-Means clustering was explored across k=2 through k=15 with multiple
+feature set combinations. Silhouette score was the primary evaluation
+metric.</p>
+<table>
+<colgroup>
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Feature Set</th>
+<th>Best k</th>
+<th>Best Silhouette</th>
+<th>Outcome</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>positivity</code> only</td>
+<td>2</td>
+<td>0.7699</td>
+<td>Clean split but trivially positive/negative</td>
+</tr>
+<tr class="even">
+<td><code>positivity + severity</code></td>
+<td>15</td>
+<td>0.5790</td>
+<td>Still climbing — no clear peak</td>
+</tr>
+<tr class="odd">
+<td><code>positivity + domains</code></td>
+<td>15</td>
+<td>0.4032</td>
+<td>Domain flags adding noise</td>
+</tr>
+<tr class="even">
+<td>All 7 features</td>
+<td>15</td>
+<td>0.2911</td>
+<td>Worst — severity variance too low</td>
+</tr>
+<tr class="odd">
+<td>Without severity</td>
+<td>15</td>
+<td>0.4877</td>
+<td>Better but still no peak</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Why K-Means didn’t produce a clean result:</strong></p>
+<ol style="list-style-type: decimal">
+<li><strong>Severity had very low variance</strong> — 46% of all cards
+scored exactly 0.6, meaning the LLM defaulted to a neutral value despite
+anchoring instructions</li>
+<li><strong>Domain flags are too binary and correlated</strong> for
+Euclidean distance separation — K-Means isn’t well-suited to mixed
+continuous/binary feature sets</li>
+<li><strong>The dominant signal is orientation</strong> — upright
+vs. reversed accounts for the clearest separation in the data. Any
+clustering algorithm finds this first</li>
+</ol>
+<p>Given these findings, the <strong>scatter plot map</strong> was
+adopted as the primary output — a more honest representation of the
+data’s actual structure than forcing arbitrary cluster labels.</p>
+<hr />
+</div>
+<div id="step-5-visualization" class="section level3">
+<h3>Step 5 — Visualization</h3>
+<p>The interactive map above plots all 156 cards on a positivity ×
+severity plane using HTML5 Canvas.</p>
+<p><strong>Features:</strong></p>
+<ul>
+<li>Hover tooltips: card name, orientation, keywords, positivity,
+severity, VADER score, domain tags</li>
+<li>Rider-Waite-Smith card images in tooltip (reversed cards displayed
+rotated 180°)</li>
+<li>Filter buttons: All / Upright / Reversed / Major Arcana / Minor
+Arcana / Wands / Cups / Swords / Pentacles</li>
+<li>Live search by card name or keyword</li>
+<li>Four shaded quadrants: Intensely Negative / Mildly Negative / Mildly
+Positive / Intensely Positive</li>
+<li>Gold-ringed dots for Major Arcana</li>
+<li>Live stats bar updating per filter</li>
+</ul>
+<hr />
+</div>
+</div>
+<div id="key-findings" class="section level2">
+<h2>Key Findings</h2>
+<div id="most-negative-cards" class="section level3">
+<h3>Most Negative Cards</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Card</th>
+<th>Positivity</th>
+<th>Severity</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Ten of Swords (upright)</td>
+<td>−0.940</td>
+<td>0.9</td>
+</tr>
+<tr class="even">
+<td>Three of Swords (upright)</td>
+<td>−0.934</td>
+<td>0.8</td>
+</tr>
+<tr class="odd">
+<td>Queen of Swords (reversed)</td>
+<td>−0.925</td>
+<td>0.7</td>
+</tr>
+<tr class="even">
+<td>The Tower (upright)</td>
+<td>−0.918</td>
+<td>1.0</td>
+</tr>
+<tr class="odd">
+<td>Five of Swords (upright)</td>
+<td>−0.883</td>
+<td>0.7</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="most-positive-cards" class="section level3">
+<h3>Most Positive Cards</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Card</th>
+<th>Positivity</th>
+<th>Severity</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>The Sun (upright)</td>
+<td>+0.964</td>
+<td>0.4</td>
+</tr>
+<tr class="even">
+<td>Nine of Cups (upright)</td>
+<td>+0.923</td>
+<td>0.2</td>
+</tr>
+<tr class="odd">
+<td>Six of Wands (upright)</td>
+<td>+0.921</td>
+<td>0.6</td>
+</tr>
+<tr class="even">
+<td>The Empress (upright)</td>
+<td>+0.909</td>
+<td>0.2</td>
+</tr>
+<tr class="odd">
+<td>Strength (upright)</td>
+<td>+0.907</td>
+<td>0.5</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="quadrant-summary" class="section level3">
+<h3>Quadrant Summary</h3>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Quadrant</th>
+<th>Representative Cards</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Intensely Negative</strong> (top-left)</td>
+<td>The Tower, Ten of Swords, Three of Swords, Five of Swords, Eight of
+Swords</td>
+</tr>
+<tr class="even">
+<td><strong>Mildly Negative</strong> (bottom-left)</td>
+<td>Most reversed cards, The Moon, The Hanged Man, Seven of Cups</td>
+</tr>
+<tr class="odd">
+<td><strong>Intensely Positive</strong> (top-right)</td>
+<td>The World, Judgement, Wheel of Fortune (upright), The Chariot</td>
+</tr>
+<tr class="even">
+<td><strong>Mildly Positive</strong> (bottom-right)</td>
+<td>Nine of Cups, Ten of Cups, The Empress, Six of Pentacles</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="notable-anomalies" class="section level3">
+<h3>Notable Anomalies</h3>
+<ul>
+<li><strong>The Devil (reversed): +0.719</strong> — correct,
+traditionally means liberation from bondage</li>
+<li><strong>Death (upright): +0.050</strong> — neutral, not negative;
+keywords are transformation/transition, not destruction</li>
+<li><strong>Five of Cups (reversed): +0.854</strong> — correctly
+positive; reversed means acceptance and moving on</li>
+<li><strong>The Tower (reversed): −0.412</strong> — still negative but
+less so; averting disaster rather than experiencing it</li>
+</ul>
+<hr />
+</div>
+</div>
+<div id="data-quality-notes-lessons-learned" class="section level2">
+<h2>Data Quality Notes &amp; Lessons Learned</h2>
+<div id="source-text-framing-matters-enormously" class="section level3">
+<h3>Source text framing matters enormously</h3>
+<p>Full prose descriptions from Labyrinthos inflated positivity scores
+dramatically. Even The Tower was framed in growth-oriented language.
+<strong>Keywords proved far more neutral and reliable</strong> for
+sentiment analysis than prose.</p>
+</div>
+<div id="llm-severity-anchoring" class="section level3">
+<h3>LLM severity anchoring</h3>
+<p>Without explicit anchor examples in the prompt, the LLM defaulted 46%
+of cards to a severity of 0.6. Adding named reference cards
+(e.g. <em>“Two of Cups = 0.2, The Tower = 1.0”</em>) in the prompt
+instructions spread the distribution, though variance remained low
+(0.025–0.028).</p>
+</div>
+<div id="k-means-limitations-on-mixed-type-features"
+class="section level3">
+<h3>K-Means limitations on mixed-type features</h3>
+<p>K-Means with Euclidean distance is not well-suited to datasets mixing
+continuous features with binary flags. Future work could explore:</p>
+<ul>
+<li><strong>Gower distance</strong> with PAM (Partitioning Around
+Medoids) for mixed data types</li>
+<li><strong>Hierarchical clustering</strong> with a dendrogram — better
+for exploration without committing to a cluster count</li>
+<li><strong>DBSCAN</strong> to identify genuinely outlying cards (The
+Tower, Ten of Swords) rather than forcing them into clusters</li>
+</ul>
+</div>
+<div id="orientation-as-the-dominant-signal" class="section level3">
+<h3>Orientation as the dominant signal</h3>
+<p>The strongest clustering signal in the data is upright vs. reversed
+orientation — upright cards average <strong>+0.353</strong> positivity,
+reversed average <strong>−0.504</strong>. This isn’t a flaw; it reflects
+the fundamental structure of tarot interpretation.</p>
+<hr />
+</div>
+</div>
+<div id="tech-stack" class="section level2">
+<h2>Tech Stack</h2>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tool / Library</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Python 3</td>
+<td>Primary language</td>
+</tr>
+<tr class="even">
+<td><code>requests</code> + <code>BeautifulSoup</code></td>
+<td>Web scraping of Labyrinthos keyword tables</td>
+</tr>
+<tr class="odd">
+<td><code>vaderSentiment</code></td>
+<td>NLP sentiment scoring on keyword strings</td>
+</tr>
+<tr class="even">
+<td><code>anthropic</code> (Python SDK)</td>
+<td>Claude API calls for structured JSON scoring</td>
+</tr>
+<tr class="odd">
+<td><code>pandas</code></td>
+<td>Data manipulation and CSV management</td>
+</tr>
+<tr class="even">
+<td><code>scikit-learn</code></td>
+<td><code>StandardScaler</code>, <code>KMeans</code>,
+<code>silhouette_score</code>, <code>PCA</code></td>
+</tr>
+<tr class="odd">
+<td><code>matplotlib</code> + <code>seaborn</code></td>
+<td>Exploratory scatter plots and elbow/silhouette charts</td>
+</tr>
+<tr class="even">
+<td>HTML5 Canvas (vanilla JS)</td>
+<td>Interactive map — no frontend framework required</td>
+</tr>
+</tbody>
+</table>
+<hr />
+</div>
+<div id="output-files" class="section level2">
+<h2>Output Files</h2>
+<table>
+<thead>
+<tr class="header">
+<th>File</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>tarot_keywords.csv</code></td>
+<td>Full 156-row dataset with all features</td>
+</tr>
+<tr class="even">
+<td><code>tarot_map_full.html</code></td>
+<td>Standalone interactive visualization</td>
+</tr>
+<tr class="odd">
+<td><code>tarot_failed_cards.csv</code></td>
+<td>Cards that failed scraping or scoring</td>
+</tr>
+</tbody>
+</table>
+<hr />
+</div>
+<div id="installation-usage" class="section level2">
+<h2>Installation &amp; Usage</h2>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># Clone the repo</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/your-username/tarot-clustering.git</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="bu">cd</span> tarot-clustering</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="co"># Install Python dependencies</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="ex">pip</span> install anthropic requests beautifulsoup4 vaderSentiment pandas scikit-learn matplotlib seaborn</span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co"># Set your Anthropic API key</span></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="bu">export</span> <span class="va">ANTHROPIC_API_KEY</span><span class="op">=</span><span class="st">&quot;sk-ant-...&quot;</span></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="co"># Run the full pipeline</span></span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a><span class="ex">python</span> tarot_pipeline.py</span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a><span class="co"># Open the interactive map</span></span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a><span class="ex">open</span> tarot_map_full.html</span></code></pre></div>
+<hr />
+</div>
+<div id="rendering-this-document" class="section level2">
+<h2>Rendering This Document</h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># Install rmarkdown if needed</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;rmarkdown&quot;</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="co"># Render to HTML for GitHub Pages</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>rmarkdown<span class="sc">::</span><span class="fu">render</span>(<span class="st">&quot;index.Rmd&quot;</span>, <span class="at">output_format =</span> <span class="st">&quot;html_document&quot;</span>)</span></code></pre></div>
+<p>Make sure <code>tarot_map_full.html</code> is in the <strong>same
+folder</strong> as the rendered <code>index.html</code> so the iframe
+resolves correctly.</p>
+<hr />
+<p><em>Rider-Waite-Smith tarot imagery is in the public domain. Keyword
+data sourced from <a href="https://labyrinthos.co">Labyrinthos</a> for
+research purposes.</em></p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
