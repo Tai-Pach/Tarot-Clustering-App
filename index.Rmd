@@ -22,7 +22,7 @@ The core question: can we group tarot cards algorithmically based on how benefic
 
 ####Pipeline
 ###Step 1 — Data Collection
-Keyword meanings were scraped from Labyrinthos (labyrinthos.co), targeting the structured keyword table on each card page rather than the full prose descriptions. This was a deliberate choice — prose text is editorially biased toward positive framing even for difficult cards, while keywords are more neutral and discriminative.
+Keyword meanings were scraped from Labyrinthos (labyrinthos.com), targeting the structured keyword table on each card page rather than the full prose descriptions. Prose text is editorially biased toward positive framing even for difficult cards, while keywords are more neutral and discriminative.
 
 •	78 cards × 2 orientations = 156 rows
 •	Source: labyrinthos.co/blogs/tarot-card-meanings-list
