@@ -1,5 +1,5 @@
 ---
-title: "Kickstarter Project"
+title: "Tarot Project"
 output:
   html_document:
     theme: journal
