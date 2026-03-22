@@ -162,10 +162,10 @@ function drawBg(){
   const w=bgC.width,h=bgC.height;
   bgX.clearRect(0,0,w,h);
   const[mx,my]=toC(0,0.5);
-  bgX.fillStyle='rgba(248,113,113,0.28)';bgX.fillRect(PAD.left,PAD.top,mx-PAD.left,my-PAD.top);
-  bgX.fillStyle='rgba(248,113,113,0.14)';bgX.fillRect(PAD.left,my,mx-PAD.left,h-PAD.bottom-my);
-  bgX.fillStyle='rgba(74,222,128,0.28)';bgX.fillRect(mx,PAD.top,w-PAD.right-mx,my-PAD.top);
-  bgX.fillStyle='rgba(74,222,128,0.14)';bgX.fillRect(mx,my,w-PAD.right-mx,h-PAD.bottom-my);
+  bgX.fillStyle='rgba(220,60,60,0.35)';bgX.fillRect(PAD.left,PAD.top,mx-PAD.left,my-PAD.top);
+  bgX.fillStyle='rgba(220,60,60,0.18)';bgX.fillRect(PAD.left,my,mx-PAD.left,h-PAD.bottom-my);
+  bgX.fillStyle='rgba(40,180,80,0.35)';bgX.fillRect(mx,PAD.top,w-PAD.right-mx,my-PAD.top);
+  bgX.fillStyle='rgba(40,180,80,0.18)';bgX.fillRect(mx,my,w-PAD.right-mx,h-PAD.bottom-my);
   bgX.strokeStyle='rgba(255,255,255,0.04)';bgX.lineWidth=1;
   for(let v=-0.8;v<=0.8;v+=0.2){
     const[gx]=toC(v,0);const[,gy]=toC(0,v);
@@ -180,11 +180,11 @@ function drawBg(){
   [-1,-0.5,0,0.5,1].forEach(v=>{const[gx]=toC(v,0);bgX.fillText(v.toFixed(1),gx,h-PAD.bottom+13)});
   bgX.textAlign='right';
   [0,0.2,0.4,0.6,0.8,1.0].forEach(v=>{const[,gy]=toC(0,v);bgX.fillText(v.toFixed(1),PAD.left-4,gy+4)});
-  bgX.font='11px Cinzel,serif';
-  bgX.fillStyle='rgba(248,113,113,0.7)';bgX.textAlign='left';bgX.fillText('INTENSELY NEGATIVE',PAD.left+10,PAD.top+20);
-  bgX.fillStyle='rgba(248,113,113,0.4)';bgX.fillText('MILDLY NEGATIVE',PAD.left+10,h-PAD.bottom-10);
-  bgX.fillStyle='rgba(74,222,128,0.7)';bgX.textAlign='right';bgX.fillText('INTENSELY POSITIVE',w-PAD.right-10,PAD.top+20);
-  bgX.fillStyle='rgba(74,222,128,0.4)';bgX.fillText('MILDLY POSITIVE',w-PAD.right-10,h-PAD.bottom-10);
+  bgX.font='bold 13px Cinzel,serif';
+  bgX.fillStyle='rgba(255,100,100,0.95)';bgX.textAlign='left';bgX.fillText('INTENSELY NEGATIVE',PAD.left+10,PAD.top+22);
+  bgX.fillStyle='rgba(255,100,100,0.75)';bgX.fillText('MILDLY NEGATIVE',PAD.left+10,h-PAD.bottom-10);
+  bgX.fillStyle='rgba(60,220,100,0.95)';bgX.textAlign='right';bgX.fillText('INTENSELY POSITIVE',w-PAD.right-10,PAD.top+22);
+  bgX.fillStyle='rgba(60,220,100,0.75)';bgX.fillText('MILDLY POSITIVE',w-PAD.right-10,h-PAD.bottom-10);
 }
 
 function drawDots(){
@@ -260,7 +260,12 @@ dotC.addEventListener('mousemove',e=>{
     if(d.energy_active)domains.push('Active');
     const dd2=document.getElementById('tt-domains');
     dd2.innerHTML=domains.map(t=>`<span class="tt-tag">${t}</span>`).join('');
-    tooltip.style.left=(e.clientX+18)+'px';tooltip.style.top=(e.clientY-10)+'px';
+    const ttW=340, ttH=tooltip.offsetHeight||500;
+    const vpW=window.innerWidth, vpH=window.innerHeight;
+    const leftPos = (e.clientX+18+ttW > vpW) ? (e.clientX-ttW-18) : (e.clientX+18);
+    const topPos  = Math.min(e.clientY-10, vpH-ttH-10);
+    tooltip.style.left=Math.max(0,leftPos)+'px';
+    tooltip.style.top=Math.max(0,topPos)+'px';
     tooltip.classList.add('visible');
   } else {tooltip.classList.remove('visible');}
 });
