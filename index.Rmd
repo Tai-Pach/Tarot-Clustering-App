@@ -1,0 +1,176 @@
+---
+title: "Kickstarter Project"
+output:
+  html_document:
+    theme: journal
+    highlight: textmate
+    code_folding: hide
+---
+
+<style>
+.main-container {
+  max-width: 1200px !important;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+
+Have you ever had a creative project in mind but lacked the funds to bring it to life?
+
+Maybe you want to publish a cookbook, film a documentary, or release an album. With the growing popularity of crowd-funding sites, that idea doesn't have to be a daydream. Kickstarter has grown into one of the most popular crowd-funding platforms on the web since its inception in 2009. Over 140,000 projects have been funded thanks to the patronage of millions of Kickstarter backers.  From smart watches to card games about combustible felines, Kickstarter has actualized projects that have impacted technology, design, and pop culture.
+
+So you have your idea, and you are ready to deploy your Kickstarter page...
+
+Not to deter you, but only about 36% of projects get funded.  So what is the magic formula to get your project fully funded? What factors effect whether a project succeeds or fails?  This data set, provided by Kaggle, can give us insight into Kickstarter projects launched between 2009 and 2018...
+
+
+*Preliminary data cleaning and feature engineering*
+```{r, message=FALSE}
+library(dplyr)
+library(data.table)
+library(kableExtra)
+library(e1071)
+library(MLmetrics)
+
+kickstarter <- fread('kickstarter.csv', header=T)
+kickstarter$ID <- as.character(kickstarter$ID)
+# remove 7 observations that have incorrect launch dates (year says "1970")
+kickstarter = kickstarter[c(-2843, -48148, -75398, -94580, -247914, -273780, -319003),]
+
+
+```
+
+####Feature Engineering:
+**Does the season affect project success or failure?**
+In my EDA of the Kickstarter data set in my [R shiny app](https://taipach.shinyapps.io/Kickstarter-Shiny-App-master/) (*see the calendar graph*), I noticed that more projects tend to be launched in the summer months (June-September).
+Maybe winter holidays veer attention away from kickstarter projects. Or people are less likely to back a project when they have to spend their money on holiday gifts. 
+
+> Let's add a column for duration of the project (in days).
+
+**Does the duration of the project determine its success or failure?**
+Super short projects might not have a chance to generate enough buzz.  Long projects might deter people from backing because the deadline is no where in sight.
+
+> Let's add another column that tells the season in which the project was launched.
+
+```{r}
+# covert deadline values to date type
+kickstarter$deadline <- as.Date(kickstarter$deadline, "%Y-%m-%d")
+#covert launched values to date type
+kickstarter$launched <- as.Date(kickstarter$launched, '%Y-%m-%d %H:%M:%S')
+# add a new column for project duration
+kickstarter$project_duration_days <- kickstarter$deadline - kickstarter$launched
+
+
+#write a function to extract the season from a datetime object
+getSeason <- function(DATES) {
+    WS <- as.Date("2012-12-15", format = "%Y-%m-%d") # Winter Solstice
+    SE <- as.Date("2012-3-15",  format = "%Y-%m-%d") # Spring Equinox
+    SS <- as.Date("2012-6-15",  format = "%Y-%m-%d") # Summer Solstice
+    FE <- as.Date("2012-9-15",  format = "%Y-%m-%d") # Fall Equinox
+
+    # Convert dates from any year to 2012 dates
+    d <- as.Date(strftime(DATES, format="2012-%m-%d"))
+
+    ifelse (d >= WS | d < SE, "Winter",
+      ifelse (d >= SE & d < SS, "Spring",
+        ifelse (d >= SS & d < FE, "Summer", "Fall")))
+}
+
+kickstarter = kickstarter %>% mutate(., season_launched = getSeason(launched))
+```
+
+
+
+###A sample of our dataset
+```{r}
+head(kickstarter) %>% kable() %>%
+  kable_styling(bootstrap_options = c("striped", "condensed")) %>%
+  scroll_box(width = "100%", height = "400px")
+```
+
+####Using A Support Vector Machine to predict whether a kickstarter project will succeed or fail
+
+Is there a way we can predict the fate of a Kickstarter project before it is launched.  It turns out we can.  By training a predictive machine learning model, we can apply that model to new data to determine whether a project succeeds or fails.  In the next steps, I train a Support Vector Machine model (with a radial kernel) on a randomized subset of the data to handle this task.  I trained the model using features I thought that had the most direct impact on project fate: The main category, the subcategory, the project goal (in USD), the country where the project is based, the duration of the project in days, and the season when the project was launched. 
+
+```{r}
+#select the features we believe have an impact on project success or failure
+subset1 = kickstarter %>% select(state,  main_category, category, usd_goal_real, country, project_duration_days, season_launched)
+
+#filter the state varible to just successful or failed projects.  (Other states exist like live, cancelled, etc.) 
+subset1 = subset1 %>% filter(., state=="successful" | state =="failed")
+
+#Factorize categorical varibles:
+subset1$state = as.factor(subset1$state)
+subset1$category = as.factor(subset1$category)
+subset1$main_category = as.factor(subset1$main_category)
+subset1$country = as.factor(subset1$country)
+subset1$season_launched = as.factor(subset1$season_launched)
+
+subset1$project_duration_days = as.numeric(subset1$project_duration_days)
+
+#omit NA values
+subset1 = na.omit(subset1)
+
+#Binarize state variables
+subset1$state <- ifelse(subset1$state=="successful", 1, 0)
+```
+
+```{r}
+#select a sample of 35,000 observations selected at random (no replacement) from the dataset
+subset_sample = subset1[sample(nrow(subset1), 35000),]
+
+set.seed(15)
+index <- 1:nrow(subset_sample)
+testindex <- sample(index, trunc(length(index)/3))
+
+testset <- subset_sample[testindex,]
+trainset <- subset_sample[-testindex,]
+
+svm.model <- svm(state ~ . , data = trainset, cost = 75, gamma = 1)
+
+#Test the model on the test set
+svm.pred <- predict(svm.model, testset[,-1])
+
+
+
+#generate a data table of predicted vs. actual
+x= data.frame(svm.pred)
+y = data.frame(testset[,1])
+
+prediction = cbind(x,y)
+```
+
+####Finding ROC AUC
+In classification problems, it is better to evaluate predictions based on probabilities.  For example, instead predicting whether a project succeeds or fail, it is a better practice to determine the probability of whether a project will succeed or fail.  An ROC-AUC can help visualize this.
+
+Let's first see the arean under curve value and the confidence interval of the AUC:
+```{r}
+######pROC####
+library(pROC)
+roc_obj <- roc(prediction$testset...1., prediction$svm.pred)
+auc(roc_obj)
+ci(roc_obj)
+```
+
+
+```{r}
+plot(roc_obj, print.auc=TRUE, auc.polygon=TRUE, grid=c(0.1, 0.2), grid.col=c("green", "red"),max.auc.polygon=TRUE, auc.polygon.col="skyblue", print.thres=FALSE)
+
+```
+
+
+Our SVM model has an auc of 0.6389.  Aucs greater than 0.5 tell us our model is predicting better than just a random guess.  However, an AUC of 0.64 leaves much in the way of model improvements.
+
+####Future steps
+To increase our model accuracy we can:
+
+1. Adjust SVM hyper-parameters (cost and gamma)
+2. Employ a model ensemble
+3. Try a different classification model (e.g. random forest)
+4. Do more feature engineering to uncover hidden features that impact project outcomes
+
+
+
+
+
+
