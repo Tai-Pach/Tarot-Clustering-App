@@ -48,19 +48,15 @@ The pipeline combines web scraping, VADER sentiment analysis, and the Claude API
 
 ## Interactive Map
 
-Hover over any dot to see the card name, keywords, scores, and Rider-Waite-Smith image. Use the filter buttons to explore by suit, orientation, or arcana type.
-
-<div class="map-container">
-  <div class="map-label">✦ &nbsp; TAROT CARD MAP — POSITIVITY × SEVERITY &nbsp; ✦</div>
+<div style="width:100%; height:100vh; margin: 0 -15px;">
   <iframe
     src="tarot_map_full.html"
-    width="100%"
-    height="780px"
-    frameborder="0"
-    scrolling="no"
-    style="display:block;">
+    style="width:100%; height:100%; border:none; display:block;"
+    scrolling="no">
   </iframe>
 </div>
+
+<div style="margin-top: 40px;">
 
 > **How to read the map:** Each dot is one card in one orientation. Green = upright, red = reversed. Gold-ringed dots are Major Arcana. The horizontal axis is positivity (negative ← → positive) and the vertical axis is severity (mild ↑ intense). The four shaded quadrants — Intensely Negative, Mildly Negative, Mildly Positive, Intensely Positive — represent the natural groupings in the data.
 
