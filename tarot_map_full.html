@@ -29,9 +29,9 @@ canvas{position:absolute;top:0;left:0;width:100%;height:100%}
 .x-label{text-align:center;margin-top:13px;font-size:13px;color:var(--muted);font-style:italic;letter-spacing:.04em}
 .y-label-wrap{position:absolute;left:13px;top:44px;bottom:56px;display:flex;align-items:center;justify-content:center}
 .y-label{writing-mode:vertical-rl;transform:rotate(180deg);font-size:13px;color:var(--muted);font-style:italic;letter-spacing:.04em}
-#tooltip{position:fixed;background:#1a1528;border:1px solid var(--gold);border-radius:4px;padding:0;pointer-events:none;opacity:0;transition:opacity .15s;z-index:100;width:300px;box-shadow:0 8px 32px rgba(0,0,0,.6);overflow:hidden}
-.tt-img-wrap{width:100%;height:160px;overflow:hidden;position:relative;background:#0d0b12}
-.tt-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
+#tooltip{position:fixed;background:#1a1528;border:1px solid var(--gold);border-radius:4px;padding:0;pointer-events:none;opacity:0;transition:opacity .15s;z-index:100;width:340px;box-shadow:0 8px 32px rgba(0,0,0,.6);overflow:hidden}
+.tt-img-wrap{width:100%;height:260px;overflow:hidden;position:relative;background:#0d0b12;display:flex;align-items:center;justify-content:center}
+.tt-img-wrap img{width:auto;height:100%;max-width:100%;object-fit:contain;display:block}
 .tt-img-wrap.reversed img{transform:rotate(180deg)}
 .tt-img-label{position:absolute;bottom:0;left:0;right:0;padding:4px 8px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;background:linear-gradient(transparent,rgba(13,11,18,.9));color:var(--gold)}
 .tt-body{padding:12px 15px}
