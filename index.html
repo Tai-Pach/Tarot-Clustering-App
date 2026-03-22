@@ -371,7 +371,22 @@ thead { background-color: #2a1f4a; color: white; }
 .map-container { border: 2px solid #c9a84c; border-radius: 6px; overflow: hidden; margin: 24px 0; box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
 .map-label { background: #2a1f4a; color: #c9a84c; font-family: Arial, sans-serif; font-size: 13px; letter-spacing: 0.08em; padding: 8px 14px; }
 </style>
+<div style="width:100%; height:100vh; margin: 0 -15px;">
+<p><iframe
+    src="tarot_map_full.html"
+    style="width:100%; height:100%; border:none; display:block;"
+    scrolling="no"> </iframe></p>
+</div>
+<div style="margin-top: 40px;">
 <hr />
+<blockquote>
+<p><strong>How to read the map:</strong> Each dot is one card in one
+orientation. Green = upright, red = reversed. Gold-ringed dots are Major
+Arcana. The horizontal axis is positivity (negative ← → positive) and
+the vertical axis is severity (mild ↑ intense). The four shaded
+quadrants — Intensely Negative, Mildly Negative, Mildly Positive,
+Intensely Positive — represent the natural groupings in the data.</p>
+</blockquote>
 <blockquote>
 <p><em>Can we group tarot cards algorithmically based on how beneficial
 or harmful their meanings are — both upright and reversed?</em></p>
@@ -391,24 +406,6 @@ which is then explored using K-Means clustering and scatter plot
 visualization.</p>
 <hr />
 </div>
-<div id="interactive-map" class="section level2">
-<h2>Interactive Map</h2>
-<div style="width:100%; height:100vh; margin: 0 -15px;">
-<p><iframe
-    src="tarot_map_full.html"
-    style="width:100%; height:100%; border:none; display:block;"
-    scrolling="no"> </iframe></p>
-</div>
-<div style="margin-top: 40px;">
-<blockquote>
-<p><strong>How to read the map:</strong> Each dot is one card in one
-orientation. Green = upright, red = reversed. Gold-ringed dots are Major
-Arcana. The horizontal axis is positivity (negative ← → positive) and
-the vertical axis is severity (mild ↑ intense). The four shaded
-quadrants — Intensely Negative, Mildly Negative, Mildly Positive,
-Intensely Positive — represent the natural groupings in the data.</p>
-</blockquote>
-<hr />
 <div id="pipeline" class="section level2">
 <h2>Pipeline</h2>
 <div id="step-1-data-collection" class="section level3">
@@ -914,7 +911,6 @@ resolves correctly.</p>
 <p><em>Rider-Waite-Smith tarot imagery is in the public domain. Keyword
 data sourced from <a href="https://labyrinthos.co">Labyrinthos</a> for
 research purposes.</em></p>
-</div>
 </div>
 </div>
 

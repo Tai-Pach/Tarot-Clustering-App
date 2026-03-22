@@ -32,21 +32,6 @@ thead { background-color: #2a1f4a; color: white; }
 .map-label { background: #2a1f4a; color: #c9a84c; font-family: Arial, sans-serif; font-size: 13px; letter-spacing: 0.08em; padding: 8px 14px; }
 </style>
 
----
-
-> *Can we group tarot cards algorithmically based on how beneficial or harmful their meanings are — both upright and reversed?*
-
----
-
-## Project Overview
-
-This project applies natural language processing and unsupervised machine learning to the 78-card Rider-Waite-Smith tarot deck. Each card is scored across dimensions of **positivity**, **severity**, and **domain relevance** based on its traditional keyword meanings, then visualized on an interactive 2D map.
-
-The pipeline combines web scraping, VADER sentiment analysis, and the Claude API to produce a 156-row dataset (78 cards × 2 orientations), which is then explored using K-Means clustering and scatter plot visualization.
-
----
-
-## Interactive Map
 
 <div style="width:100%; height:100vh; margin: 0 -15px;">
   <iframe
@@ -58,7 +43,19 @@ The pipeline combines web scraping, VADER sentiment analysis, and the Claude API
 
 <div style="margin-top: 40px;">
 
+---
+
 > **How to read the map:** Each dot is one card in one orientation. Green = upright, red = reversed. Gold-ringed dots are Major Arcana. The horizontal axis is positivity (negative ← → positive) and the vertical axis is severity (mild ↑ intense). The four shaded quadrants — Intensely Negative, Mildly Negative, Mildly Positive, Intensely Positive — represent the natural groupings in the data.
+
+> *Can we group tarot cards algorithmically based on how beneficial or harmful their meanings are — both upright and reversed?*
+
+---
+
+## Project Overview
+
+This project applies natural language processing and unsupervised machine learning to the 78-card Rider-Waite-Smith tarot deck. Each card is scored across dimensions of **positivity**, **severity**, and **domain relevance** based on its traditional keyword meanings, then visualized on an interactive 2D map.
+
+The pipeline combines web scraping, VADER sentiment analysis, and the Claude API to produce a 156-row dataset (78 cards × 2 orientations), which is then explored using K-Means clustering and scatter plot visualization.
 
 ---
 
@@ -287,3 +284,5 @@ Make sure `tarot_map_full.html` is in the **same folder** as the rendered `index
 ---
 
 *Rider-Waite-Smith tarot imagery is in the public domain. Keyword data sourced from [Labyrinthos](https://labyrinthos.co) for research purposes.*
+
+</div>
