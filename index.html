@@ -77,7 +77,7 @@
 }
 
 /* Content section styles */
-.main-container { max-width: 960px !important; padding-top: 40px !important; }
+.main-container { max-width: 960px !important; padding-top: 40px !important; margin-left: 220px !important; }
 body { font-family: 'Georgia', serif; font-size: 16px; color: #2c2c2c; }
 h1, h2, h3 { font-family: 'Arial', sans-serif; }
 h1 { border-bottom: 3px solid #c9a84c; padding-bottom: 8px; }
@@ -87,6 +87,8 @@ blockquote { border-left: 4px solid #c9a84c; background: #fdf9f0; padding: 12px 
 .callout strong { color: #4c1d95; }
 table { width: 100%; }
 thead { background-color: #2a1f4a; color: white; }
+/* Fix TOC sidebar not overlapping content */
+#TOC { position: fixed; left: 0; top: 0; width: 200px; height: 100vh; overflow-y: auto; z-index: 1000; }
 </style>
 
 <!-- Full viewport map hero -->
@@ -99,10 +101,37 @@ thead { background-color: #2a1f4a; color: white; }
   ▼ &nbsp; scroll down for project writeup &nbsp; ▼
 </div>
 
+<!-- Back to map button — shown after map dismissed -->
+<div id="back-to-map" onclick="showMap()" style="
+  display:none;
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  z-index:10000;
+  background:#2a1f4a;
+  color:#c9a84c;
+  border:1px solid #c9a84c;
+  border-radius:4px;
+  padding:8px 14px;
+  font-family:Arial,sans-serif;
+  font-size:12px;
+  letter-spacing:0.08em;
+  cursor:pointer;
+  box-shadow:0 2px 12px rgba(0,0,0,0.3);
+">✦ &nbsp; View Map</div>
+
 <script>
 function dismissMap() {
   document.getElementById('map-hero').style.display = 'none';
   document.getElementById('scroll-hint').style.display = 'none';
+  document.getElementById('back-to-map').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showMap() {
+  document.getElementById('map-hero').style.display = 'block';
+  document.getElementById('scroll-hint').style.display = 'block';
+  document.getElementById('back-to-map').style.display = 'none';
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -111,6 +140,7 @@ window.addEventListener('scroll', function() {
   if (window.scrollY > 80) {
     document.getElementById('map-hero').style.display = 'none';
     document.getElementById('scroll-hint').style.display = 'none';
+    document.getElementById('back-to-map').style.display = 'block';
   }
 }, { passive: true });
 </script>
@@ -436,11 +466,81 @@ Meanings</h3>
 </div>
 
 
+<style>
+/* ── Layout fixes ── */
+/* Push main content right to clear the TOC sidebar */
+.main-container {
+  max-width: 100% !important;
+  padding-left: 240px !important;
+  padding-right: 40px !important;
+  padding-top: 30px !important;
+}
+/* TOC sidebar fixed on left */
+.tocify-wrapper {
+  top: 20px !important;
+}
+/* Hide auto title block */
+.title, .subtitle, .author, .date { display: none !important; }
+
+/* ── Typography ── */
+body { font-family: 'Georgia', serif; font-size: 16px; color: #2c2c2c; }
+h1, h2, h3 { font-family: 'Arial', sans-serif; }
+h1 { border-bottom: 3px solid #c9a84c; padding-bottom: 8px; }
+h2 { border-bottom: 1px solid #ddd; padding-bottom: 6px; }
+blockquote { border-left: 4px solid #c9a84c; background: #fdf9f0; padding: 12px 16px; font-style: italic; }
+.callout { background: #f0eaff; border-left: 5px solid #7c3aed; padding: 14px 18px; margin: 16px 0; border-radius: 4px; }
+.callout strong { color: #4c1d95; }
+table { width: 100%; }
+thead { background-color: #2a1f4a; color: white; }
+
+/* ── Back to map button ── */
+#back-to-map-btn {
+  display: none;
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 99999;
+  background: #2a1f4a;
+  color: #c9a84c;
+  border: 1px solid #c9a84c;
+  border-radius: 4px;
+  padding: 10px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  text-decoration: none;
+}
+#back-to-map-btn:hover { background: #3a2f5a; }
+</style>
+<!-- Back to map floating button -->
+<p><a id="back-to-map-btn" href="#">✦   View Map</a></p>
+<script>
+// Show/hide back-to-map button based on scroll
+window.addEventListener('scroll', function() {
+  var btn = document.getElementById('back-to-map-btn');
+  if (window.scrollY > 100) {
+    btn.style.display = 'block';
+  } else {
+    btn.style.display = 'none';
+  }
+}, { passive: true });
+
+// Clicking button shows the map overlay and scrolls to top
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('back-to-map-btn').addEventListener('click', function(e) {
+    e.preventDefault();
+    var hero = document.getElementById('map-hero');
+    var hint = document.getElementById('scroll-hint');
+    if (hero) hero.style.display = 'block';
+    if (hint) hint.style.display = 'block';
+    this.style.display = 'none';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+</script>
 <hr />
-<blockquote>
-<p><em>Can we group tarot cards algorithmically based on how beneficial
-or harmful their meanings are — both upright and reversed?</em></p>
-</blockquote>
 <blockquote>
 <p><em>Can we group tarot cards algorithmically based on how beneficial
 or harmful their meanings are — both upright and reversed?</em></p>
@@ -462,10 +562,12 @@ visualization.</p>
 </div>
 <div id="interactive-map" class="section level2">
 <h2>Interactive Map</h2>
-<p>The full interactive map is embedded above — hover over any dot to
-see the card name, keywords, scores, and Rider-Waite-Smith image. Use
-the filter buttons to explore by suit, orientation, or arcana type.
-Green = upright, red = reversed, gold ring = Major Arcana.</p>
+<p>The full interactive map loads when you first visit the page — hover
+over any dot to see the card name, keywords, scores, and
+Rider-Waite-Smith image. Use the filter buttons to explore by suit,
+orientation, or arcana type. Green = upright, red = reversed, gold ring
+= Major Arcana. Use the <strong>✦ View Map</strong> button
+(bottom-right) to return to it at any time.</p>
 <hr />
 </div>
 <div id="pipeline" class="section level2">
@@ -674,8 +776,8 @@ data’s actual structure than forcing arbitrary cluster labels.</p>
 </div>
 <div id="step-5-visualization" class="section level3">
 <h3>Step 5 — Visualization</h3>
-<p>The interactive map above plots all 156 cards on a positivity ×
-severity plane using HTML5 Canvas.</p>
+<p>The interactive map plots all 156 cards on a positivity × severity
+plane using HTML5 Canvas.</p>
 <p><strong>Features:</strong></p>
 <ul>
 <li>Hover tooltips: card name, orientation, keywords, positivity,
@@ -943,8 +1045,8 @@ the fundamental structure of tarot interpretation.</p>
 <h2>Installation &amp; Usage</h2>
 <div class="sourceCode" id="cb3"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># Clone the repo</span></span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/your-username/tarot-clustering.git</span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="bu">cd</span> tarot-clustering</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/tai-pach/Tarot-Clustering-App.git</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="bu">cd</span> Tarot-Clustering-App</span>
 <span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a></span>
 <span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="co"># Install Python dependencies</span></span>
 <span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="ex">pip</span> install anthropic requests beautifulsoup4 vaderSentiment pandas scikit-learn matplotlib seaborn</span>
@@ -961,19 +1063,15 @@ class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="
 </div>
 <div id="rendering-this-document" class="section level2">
 <h2>Rendering This Document</h2>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># Install rmarkdown if needed</span></span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;rmarkdown&quot;</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="co"># Render to HTML for GitHub Pages</span></span>
-<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>rmarkdown<span class="sc">::</span><span class="fu">render</span>(<span class="st">&quot;index.Rmd&quot;</span>, <span class="at">output_format =</span> <span class="st">&quot;html_document&quot;</span>)</span></code></pre></div>
-<p>Make sure <code>tarot_map_full.html</code> is in the <strong>same
-folder</strong> as the rendered <code>index.html</code> so the iframe
-resolves correctly.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;rmarkdown&quot;</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>rmarkdown<span class="sc">::</span><span class="fu">render</span>(<span class="st">&quot;index.Rmd&quot;</span>, <span class="at">output_format =</span> <span class="st">&quot;html_document&quot;</span>)</span></code></pre></div>
+<p>Make sure <code>tarot_map_full.html</code> and
+<code>header.html</code> are in the <strong>same folder</strong> as
+<code>index.Rmd</code>.</p>
 <hr />
 <p><em>Rider-Waite-Smith tarot imagery is in the public domain. Keyword
 data sourced from <a href="https://labyrinthos.co">Labyrinthos</a> for
 research purposes.</em></p>
-</div>
 </div>
 
 
