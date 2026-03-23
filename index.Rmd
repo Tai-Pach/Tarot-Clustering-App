@@ -104,8 +104,9 @@ document.addEventListener('DOMContentLoaded', function() {
 ---
 
 ## Project Overview
+People have found great fascination drawing and interpreting tarot cards. With major arcana cards typically representating major life changes and the minor arcana revealing day-to-day circumstances. Additionally, cards drawn in reverse provide a counterpoint to the card's traditional upright meaning.
 
-This project applies natural language processing and unsupervised machine learning to the 78-card Rider-Waite-Smith tarot deck. Each card is scored across dimensions of **positivity**, **severity** (i.e. intensity of meaning), and **domain relevance** (love, career, health, etc.) based on its traditional keyword meanings, then visualized on an interactive 2D map.
+This project applies natural language processing and unsupervised machine learning to the 78-card Rider-Waite-Smith tarot deck. Each card is scored across dimensions of **positivity**, **severity** (i.e. intensity of meaning), and **domain relevance** (love, career, health, etc.) based on each card's traditional interpretations (both upright and reversed), then visualized on an interactive 2D map. With this project, I wanted to see if I could apply a Kmeans clustering algorithm to group cards by their historical meanings.
 
 The pipeline combines web scraping (beautifulsoup), VADER sentiment analysis, and the Claude API to produce a 156-row dataset (78 cards × 2 orientations), which is then explored using K-Means clustering and scatter plot visualization.
 
@@ -159,9 +160,9 @@ The final `positivity` score is the average of VADER and LLM scores, giving a mo
 
 ### Step 3 — NLP Scoring
 
-**VADER** (Valence Aware Dictionary and sEntiment Reasoner) was applied directly to the raw keyword strings. VADER works well on comma-separated word lists since it evaluates lexical sentiment without requiring sentence structure.
+**VADER** (Valence Aware Dictionary and sEntiment Reasoner) was applied directly to the raw keyword strings. VADER works well on comma-separated word lists since it evaluates sentiment without requiring sentence structure.
 
-**Claude API** was prompted with the same keywords to produce structured JSON scores. The prompt explicitly required traditional Rider-Waite-Smith interpretation — not modern positive-psychology reframing — and included explicit scoring anchors:
+**Claude API** was prompted with the same keywords to produce structured JSON scores. The prompt explicitly required traditional Rider-Waite-Smith interpretation — not modern positive-psychology reframing — and included explicit scoring benchmarks:
 
 ```
 Scoring reminders:
@@ -193,10 +194,9 @@ K-Means clustering was explored across k=2 through k=15 with multiple feature se
 **Why K-Means didn't produce a clean result:**
 
 1. **Severity had very low variance** — 46% of all cards scored exactly 0.6, meaning the LLM defaulted to a neutral value despite anchoring instructions
-2. **Domain flags are too binary and correlated** for Euclidean distance separation — K-Means isn't well-suited to mixed continuous/binary feature sets
-3. **The dominant signal is orientation** — upright vs. reversed accounts for the clearest separation in the data. Any clustering algorithm finds this first
+2. **The dominant signal is orientation** — upright vs. reversed accounts for the clearest separation in the data.
 
-Given these findings, the **scatter plot map** was adopted as the primary output — a more honest representation of the data's actual structure than forcing arbitrary cluster labels.
+Given these findings, the **scatter plot map** was adopted as the primary output. THis was a more honest representation of the data's actual structure than forcing arbitrary cluster labels.
 
 ---
 
@@ -260,7 +260,7 @@ The interactive map plots all 156 cards on a positivity × severity plane using 
 
 ### Source text framing matters enormously
 
-Full prose descriptions from Labyrinthos inflated positivity scores dramatically. Even The Tower was framed in growth-oriented language. **Keywords proved far more neutral and reliable** for sentiment analysis than prose.
+Full prose descriptions from Labyrinthos inflated positivity scores dramatically. Even The Tower (a notoriously challenging card) was framed in growth-oriented language. **Keywords proved far more neutral and reliable** for sentiment analysis than prose.
 
 ### LLM severity anchoring
 
@@ -294,39 +294,6 @@ The strongest clustering signal in the data is upright vs. reversed orientation 
 | `tarot_keywords.csv` | Full 156-row dataset with all features |
 | `tarot_map_full.html` | Standalone interactive visualization |
 | `tarot_failed_cards.csv` | Cards that failed scraping or scoring |
-
----
-
-## Installation & Usage
-
-```bash
-# Clone the repo
-git clone https://github.com/tai-pach/Tarot-Clustering-App.git
-cd Tarot-Clustering-App
-
-# Install Python dependencies
-pip install anthropic requests beautifulsoup4 vaderSentiment pandas scikit-learn matplotlib seaborn
-
-# Set your Anthropic API key
-export ANTHROPIC_API_KEY="sk-ant-..."
-
-# Run the full pipeline
-python tarot_pipeline.py
-
-# Open the interactive map
-open tarot_map_full.html
-```
-
----
-
-## Rendering This Document
-
-```r
-install.packages("rmarkdown")
-rmarkdown::render("index.Rmd", output_format = "html_document")
-```
-
-Make sure `tarot_map_full.html` and `header.html` are in the **same folder** as `index.Rmd`.
 
 ---
 
