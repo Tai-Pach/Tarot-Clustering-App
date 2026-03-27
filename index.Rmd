@@ -118,6 +118,15 @@ The full interactive map loads when you first visit the page — hover over any 
 
 ---
 
+## Interesting Findings
+
+Visualizing the data in this way revealed several surprising insights:
+
+- The pentacles suit (wealth, possessions) skews either midly positive or intensely negative. Does the loss of finances and material posessions impact our lives more intensely than the value of material gain?
+- The swords suit (mental health, ideas) is overall very intense, both positive and negative -- perhaps suggesting that matters of the mind play a heavy role in our day-to-day.
+
+---
+
 ## Pipeline
 
 ### Step 1 — Data Collection
@@ -128,8 +137,6 @@ Keyword meanings were scraped from [Labyrinthos](https://labyrinthos.co/blogs/ta
 
 - 78 cards × 2 orientations = **156 rows**
 - Source: `labyrinthos.co/blogs/tarot-card-meanings-list`
-- Polite crawl delays (3–5 seconds between requests) with retry logic for 503 errors
-- Pre-flight URL validation with per-error-type handling (404, 503, timeout)
 
 **URL pattern:**
 ```
