@@ -11,7 +11,7 @@
 
 <meta name="author" content="" />
 
-<meta name="date" content="2026-03-22" />
+<meta name="date" content="2026-03-26" />
 
 <title>Tarot Card Clustering</title>
 
@@ -350,7 +350,7 @@ div.tocify {
 <h3 class="subtitle">NLP &amp; Unsupervised Learning on Tarot Card
 Meanings</h3>
 <h4 class="author"></h4>
-<h4 class="date">2026-03-22</h4>
+<h4 class="date">2026-03-26</h4>
 
 </div>
 
@@ -467,6 +467,20 @@ orientation, or arcana type. Green = upright, red = reversed, gold ring
 (bottom-right) to return to it at any time.</p>
 <hr />
 </div>
+<div id="interesting-findings" class="section level2">
+<h2>Interesting Findings</h2>
+<p>Visualizing the data in this way revealed several surprising
+insights:</p>
+<ul>
+<li>The pentacles suit (wealth, possessions) skews either midly positive
+or intensely negative. Does the loss of finances and material posessions
+impact our lives more intensely than the value of material gain?</li>
+<li>The swords suit (mental health, ideas) is overall very intense, both
+positive and negative – perhaps suggesting that matters of the mind play
+a heavy role in our day-to-day.</li>
+</ul>
+<hr />
+</div>
 <div id="pipeline" class="section level2">
 <h2>Pipeline</h2>
 <div id="step-1-data-collection" class="section level3">
@@ -484,10 +498,6 @@ innocence”</em>.</p>
 <li>78 cards × 2 orientations = <strong>156 rows</strong></li>
 <li>Source:
 <code>labyrinthos.co/blogs/tarot-card-meanings-list</code></li>
-<li>Polite crawl delays (3–5 seconds between requests) with retry logic
-for 503 errors</li>
-<li>Pre-flight URL validation with per-error-type handling (404, 503,
-timeout)</li>
 </ul>
 <p><strong>URL pattern:</strong></p>
 <pre><code>https://labyrinthos.co/blogs/tarot-card-meanings-list/{card-slug}</code></pre>
